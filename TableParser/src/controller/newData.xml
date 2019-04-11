@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><university>
+    <name>BSUIR</name>
+    <faculties>
+        <faculty titleF="ФИТУ">
+            <departments>
+                <department titleK="Интеллектуальных информационных технологий">
+                	<employee degree="доктор технических наук" degreeT="профессор" name="Голенков" secondName="Владимирович" surname="Владимир" year="200"/>
+                	<employee degree="кандидат технических наук" degreeT="доцент" name="Романов" secondName="Ильич" surname="Владимир" year="15"/>
+               		<employee degree="кандидат технических наук" degreeT="доцент" name="Давыденко" secondName="Тимофеевна" surname="Ирина" year="6"/>
+					<employee degree="кандидат технических наук" degreeT="доцент" name="Шункевич" secondName="Вячеславович" surname="Даниил" year="7"/>                
+                </department>
+                <department titleK="Гуманитарных дисциплин">
+                	<employee degree=" - " degreeT="преподаватель" name="Пацеева" secondName="Георгиевна" surname="OXXI" year="8"/>
+                	<employee degree="доктор технических наук" degreeT="профессор" name="Новик" secondName="Константинович" surname="Евгений" year="30"/>
+               		<employee degree="кандидат технических наук" degreeT="доцент" name="Качалов" secondName="Леонидович" surname="Игорь" year="10"/>
+                </department>
+                 <department titleK="Вычислительных методов и программирования">
+                	<employee degree="кандидат технических наук" degreeT="доцент" name="Кукин" secondName="Петрович" surname="Дмитрий" year="8"/>
+                	<employee degree=" - " degreeT="старший преподаватель" name="Шатилова" secondName="Олеговна" surname="Ольга" year="5"/>
+               		<employee degree=" - " degreeT="ассистент" name="Гуревич" secondName="Владимирович" surname="Александр" year="9"/>
+                </department>
+            </departments>
+        </faculty>
+        <faculty titleF="КСИС">
+           <departments>
+                <department titleK="Высшей математики">
+                	<employee degree="кандидат технических наук" degreeT="доцент" name="Mirpn" secondName="Альбертовна" surname="Жанна" year="17"/>
+                	<employee degree=" - " degreeT="ассистент" name="Самсонов" secondName="Анатольевич" surname="Павел" year="5"/>
+               		<employee degree=" - " degreeT="ассистент" name="Семеняка" secondName="Николаевич" surname="Андрей" year="12"/>
+                </department>
+                <department titleK="Информатики">
+                	<employee degree="доктор технических наук" degreeT="профессор" name="Иванюк" secondName="Александрович" surname="Александр" year="8"/>
+                	<employee degree="кандидат физико-математических наук" degreeT="доцент" name="Пилецкий" secondName="Иванович" surname="Иван" year="20"/>
+                </department>
+                 <department titleK="Физики">
+                	<employee degree="кандидат физико-математических наук" degreeT="доцент" name="Березин" secondName="Васильевич" surname="Адександр" year="18"/>
+                	<employee degree="кандидат физико-математических наук" degreeT="доцент" name="Кисель" secondName="Васильевич" surname="Василий" year="23"/>
+               		<employee degree="кандидат физико-математических наук" degreeT="доцент" name="Мурзов" secondName="Иванович" surname="Виктор" year="9"/>
+               		<employee degree="доктор физико-математических наук" degreeT="профессор" name="Величко" secondName="Иванович" surname="Олег" year="9"/>
+                </department>
+            </departments>
+        </faculty>
+        <faculty titleF="ИЭФ">
+            <department titleK="Менеджмента">
+                	<employee degree="кандидат экономических наук" degreeT="доцент" name="Беляцкая" secondName="Николаевна" surname="Татьяна" year="14"/>
+                	<employee degree="кандидат экономических наук" degreeT="доцент" name="Ермакова" secondName="Витальевна" surname="Екатерина" year="13"/>
+               		<employee degree="магистр технических наук" degreeT="старший преподаватель" name="Князькова" secondName="Святославовна" surname="Вероника" year="2"/>
+                </department>
+                <department titleK="Экономической информатики">
+                	<employee degree="кандидат технических наук" degreeT="доцент" name="Алексеев" secondName="Федерович" surname="Виктор" year="18"/>
+                	<employee degree=" - " degreeT="старший преподаватель" name="Астрощенка" secondName="Александровна" surname="Натэлла" year="6"/>
+                	<employee degree="кандидат техническиз наук" degreeT="доцент" name="Луцик" secondName="Александрович" surname="Юрий" year="9"/>
+                </department>
+        </faculty>
+        
+        
+        
+       	<faculty titleF="ФИК">
+            <departments>
+                <department titleK="Интеллектуальных информационных технологий">
+                	<employee degree="доктор технических наук" degreeT="профессор" name="Голенков" secondName="Владимирович" surname="Владимир" year="200"/>
+                	<employee degree="кандидат технических наук" degreeT="доцент" name="Романов" secondName="Ильич" surname="Владимир" year="15"/>
+               		<employee degree="кандидат технических наук" degreeT="доцент" name="Давыденко" secondName="Тимофеевна" surname="Ирина" year="6"/>
+					<employee degree="кандидат технических наук" degreeT="доцент" name="Шункевич" secondName="Вячеславович" surname="Даниил" year="7"/>                
+                </department>
+                <department titleK="Гуманитарных дисциплин">
+                	<employee degree=" - " degreeT="преподаватель" name="Пацеева" secondName="Георгиевна" surname="Анастасия" year="8"/>
+                	<employee degree="доктор технических наук" degreeT="профессор" name="Новик" secondName="Константинович" surname="Евгений" year="30"/>
+               		<employee degree="кандидат технических наук" degreeT="доцент" name="Качалов" secondName="Леонидович" surname="Игорь" year="10"/>
+                </department>
+                 <department titleK="Вычислительных методов и программирования">
+                	<employee degree="кандидат технических наук" degreeT="доцент" name="Кукин" secondName="Петрович" surname="Дмитрий" year="8"/>
+                	<employee degree=" - " degreeT="старший преподаватель" name="Шатилова" secondName="Олеговна" surname="Ольга" year="5"/>
+               		<employee degree=" - " degreeT="ассистент" name="Гуревич" secondName="Владимирович" surname="Александр" year="9"/>
+                </department>
+            </departments>
+        </faculty>
+        <faculty titleF="ФТК">
+           <departments>
+                <department titleK="Высшей математики">
+                	<employee degree="кандидат технических наук" degreeT="доцент" name="Черняк" secondName="Альбертовна" surname="Жанна" year="17"/>
+                	<employee degree=" - " degreeT="ассистент" name="Самсонов" secondName="Анатольевич" surname="Павел" year="5"/>
+               		<employee degree=" - " degreeT="ассистент" name="Семеняка" secondName="Николаевич" surname="Андрей" year="12"/>
+                </department>
+                <department titleK="Информатики">
+                	<employee degree="доктор технических наук" degreeT="профессор" name="Иванюк" secondName="Александрович" surname="Александр" year="8"/>
+                	<employee degree="кандидат физико-математических наук" degreeT="доцент" name="Пилецкий" secondName="Иванович" surname="Иван" year="20"/>
+                </department>
+                 <department titleK="Физики">
+                	<employee degree="кандидат физико-математических наук" degreeT="доцент" name="Березин" secondName="Васильевич" surname="Адександр" year="18"/>
+                	<employee degree="кандидат физико-математических наук" degreeT="доцент" name="Кисель" secondName="Васильевич" surname="Василий" year="23"/>
+               		<employee degree="кандидат физико-математических наук" degreeT="доцент" name="Мурзов" secondName="Иванович" surname="Виктор" year="9"/>
+               		<employee degree="доктор физико-математических наук" degreeT="профессор" name="Величко" secondName="Иванович" surname="Олег" year="9"/>
+                </department>
+            </departments>
+        <departments><department titleK="Личная кафедра"><employee degree="кандидат мемосных наук" degreeT="профессор" name="Алеся" secondName="Кротая" surname="Витальевна" year="1000500"/></department></departments></faculty>
+        <faculty titleF="ФРЭ">
+            <department titleK="Менеджмента">
+                	<employee degree="кандидат экономических наук" degreeT="доцент" name="Беляцкая" secondName="Николаевна" surname="Татьяна" year="14"/>
+                	<employee degree="кандидат экономических наук" degreeT="доцент" name="Ермакова" secondName="Витальевна" surname="Екатерина" year="13"/>
+               		<employee degree="магистр технических наук" degreeT="старший преподаватель" name="Князькова" secondName="Святославовна" surname="Вероника" year="2"/>
+                </department>
+                <department titleK="Экономической информатики">
+                	<employee degree="кандидат технических наук" degreeT="доцент" name="Алексеев" secondName="Федерович" surname="Виктор" year="18"/>
+                	<employee degree=" - " degreeT="старший преподаватель" name="Астрощенка" secondName="Александровна" surname="Натэлла" year="6"/>
+                	<employee degree="кандидат техническиз наук" degreeT="доцент" name="Луцик" secondName="Александрович" surname="Юрий" year="9"/>
+                </department>
+        </faculty>
+    </faculties>
+</university>
