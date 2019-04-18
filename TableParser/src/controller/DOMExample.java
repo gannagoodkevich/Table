@@ -28,79 +28,113 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class DOMExample {
-	//НЕ ЗАБУДЬ ЕЎЕ РАЗ ПОЧИСТИТЬ САМ ХМЛ ДОКУМЕНТ!!!
+	//НЕ ЗАБУДЬ ЕЩЕ РАЗ ПОЧИСТИТЬ САМ ХМЛ ДОКУМЕНТ!!!
 	// Список для сотрудников из XML файла
-	public static void main(String[] args) throws SAXException, IOException, TransformerException {
-		try {
+	public static void main(String[] args) throws SAXException, IOException, TransformerException, ParserConfigurationException {
+		
 			DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-			Document document = documentBuilder.parse("src/controller/Data.xml");
+			Document document = documentBuilder.newDocument();
 
 			// Получаем корневой элемент
-			Node root = document.getFirstChild();
-
-			
-			//changeFacultyName(document, "HAHA", 3);
-			changeName(document, "OXXI", 4);
-			changeSurname(document, "Mirpn", 10);
-			FullName name = new FullName("Алеся", "Витальевна", "Кротая");
-			createEmployee(document, "ФТК", "Личная кафедра", name, "профессор", "кандидат мемосных наук", "1000500");
-			/*
-			 * // Добавим новый элемент Element site = document.createElement("site");
-			 * site.appendChild(document.createTextNode("http://javism.blogspot.com/"));
-			 * blog.appendChild(site);
-			 * 
-			 * // Пройдемся по элементу blog и удалим элементы language // и изменим имя
-			 * Pavel на Pavel O NodeList list = blog.getChildNodes(); for (int i = 0; i <
-			 * list.getLength(); i++) { Node node = list.item(i); if
-			 * ("author".equals(node.getNodeName())) node.setTextContent("Pavel O"); if
-			 * ("language".equals(node.getNodeName())) blog.removeChild(node); }
-			 */
-			// Запишем содержимое в xml файл
-			TransformerFactory transformerFactory = TransformerFactory.newInstance();
-			Transformer transformer = transformerFactory.newTransformer();
+			Node root = document.createElement("university");
+			document.appendChild(root);
+			Element nameUni = document.createElement("name");
+			nameUni.setTextContent("BSU");
+			root.appendChild(nameUni);
+			Element faculties = document.createElement("faculties");
+			root.appendChild(faculties);
+			Element faculty = document.createElement("faculty");
+			faculty.setAttribute("titleF", "IIT");
+			faculties.appendChild(faculty);
+			Element department = document.createElement("department");
+			faculties.appendChild(department);
+			TransformerFactory transform = TransformerFactory.newInstance();
+			Transformer trans =  transform.newTransformer();
 			DOMSource domSource = new DOMSource(document);
-			StreamResult streamResult = new StreamResult(new File("src/controller/newData.xml"));
-			transformer.transform(domSource, streamResult);
-		} catch (ParserConfigurationException pce) {
-			System.out.println(pce.getLocalizedMessage());
-			pce.printStackTrace();
-		} /*
-			 * catch (TransformerException te) {
-			 * System.out.println(te.getLocalizedMessage()); te.printStackTrace(); } catch
-			 * (IOException ioe) { System.out.println(ioe.getLocalizedMessage());
-			 * ioe.printStackTrace(); } catch (SAXException sae) {
-			 * System.out.println(sae.getLocalizedMessage()); sae.printStackTrace(); }
-			 */
+			StreamResult res = new StreamResult(new File("src/controller/new.xml"));
+						
+			trans.transform(domSource, res);
 	}
-	public static void changeName(Document document, String name, int index) {
-		Node blog = document.getElementsByTagName("employee").item(index);
-		NamedNodeMap namedNodeMap = blog.getAttributes();
-		Node nodeAttr = namedNodeMap.getNamedItem("surname");
-		nodeAttr.setTextContent(name);
-	}
-	public static void changeSecondName(Document document, String name, int index) {
-		Node blog = document.getElementsByTagName("employee").item(index);
-		NamedNodeMap namedNodeMap = blog.getAttributes();
-		Node nodeAttr = namedNodeMap.getNamedItem("secondName");
-		nodeAttr.setTextContent(name);
-	}
-	public static void changeSurname(Document document, String name, int index) {
-		Node blog = document.getElementsByTagName("employee").item(index);
-		NamedNodeMap namedNodeMap = blog.getAttributes();
-		Node nodeAttr = namedNodeMap.getNamedItem("name");
-		nodeAttr.setTextContent(name);
-	}
-	
+	//пока так: не проверяю на родителя, чтобы знать, что ета кафедра есть.
 	public static void createEmployee(Document document, String faculty, String department, FullName name, String degreeName, String degree, String year) {
 		NodeList fac = document.getElementsByTagName("faculty");
+		NodeList dep1 = document.getElementsByTagName("department");
+		System.out.println(dep1.getLength());
 		for(int i=0; i<fac.getLength(); i++) {
 			//faculty.equals(fac.item(i));
 			NamedNodeMap namedNodeMap = fac.item(i).getAttributes();
 			Node nodeAttr = namedNodeMap.getNamedItem("titleF");
 			System.out.println(nodeAttr.getTextContent());
 			if(faculty.equals(nodeAttr.getTextContent())) {
-				Element blog0 = document.createElement("departments");
+				NodeList dep = document.getElementsByTagName("department");
+				for(int k=0; k<dep.getLength(); k++) {
+					//if(dep.item(k).getParentNode().equals(fac.item(0))) {
+						NamedNodeMap depMap = dep.item(k).getAttributes();
+						Node depAttr = depMap.getNamedItem("titleK");
+						if(department.equals(depAttr.getTextContent())) {
+							System.out.println(depMap.getNamedItem("titleK"));
+							Element employee = document.createElement("employee");
+							Attr name1 = document.createAttribute("name");
+							name1.setValue(name.getName());
+							employee.setAttributeNode(name1);
+							Attr name2 = document.createAttribute("surname");
+							name2.setValue(name.getSurname());
+							employee.setAttributeNode(name2);
+							Attr name3 = document.createAttribute("secondName");
+							name3.setValue(name.getSecondName());
+							employee.setAttributeNode(name3);
+							Attr degreen = document.createAttribute("degreeT");
+							degreen.setValue(degreeName);
+							employee.setAttributeNode(degreen);
+							Attr degree1 = document.createAttribute("degree");
+							degree1.setValue(degree);
+							employee.setAttributeNode(degree1);
+							Attr year1 = document.createAttribute("year");
+							year1.setValue(year);
+							employee.setAttributeNode(year1);
+							dep.item(k).appendChild(employee);
+						}
+					//}
+					/*else {
+						System.out.println(dep.getLength());
+						System.out.println("Fail");
+					}*/
+				}
+				
+				/*for(int k=0; k<dep.getLength(); k++) {
+					//faculty.equals(fac.item(i));
+					//NamedNodeMap depMap = dep.item(i).getAttributes();
+					//Node depAttr = depMap.getNamedItem("titleK");
+					if(department.equals(depAttr.getTextContent())) {
+						Node depFin = depAttr;
+						System.out.println(depAttr.getTextContent());
+						
+						Element employee = document.createElement("employee");
+			            Attr name1 = document.createAttribute("name");
+			            name1.setValue(name.getName());
+			            employee.setAttributeNode(name1);
+			            Attr name2 = document.createAttribute("surname");
+			            name2.setValue(name.getSurname());
+			            employee.setAttributeNode(name2);
+			            Attr name3 = document.createAttribute("secondName");
+			            name3.setValue(name.getSecondName());
+			            employee.setAttributeNode(name3);
+			            Attr degreen = document.createAttribute("degreeT");
+			            degreen.setValue(degreeName);
+			            employee.setAttributeNode(degreen);
+			            Attr degree1 = document.createAttribute("degree");
+			            degree1.setValue(degree);
+			            employee.setAttributeNode(degree1);
+			            Attr year1 = document.createAttribute("year");
+			            year1.setValue(year);
+			            employee.setAttributeNode(year1);
+			            depFin.appendChild(employee);
+						
+					}*/
+				}	
+				
+				/*Element blog0 = document.createElement("departments");
 				//Node blog0 = document.getElementsByTagName("departments").item(0);
 				fac.item(i).appendChild(blog0);
 				Element blog = document.createElement("department");
@@ -108,32 +142,29 @@ public class DOMExample {
 	            //Установка атрибута элемента blog
 	            Attr attr = document.createAttribute("titleK");
 	            attr.setValue(department);
-	            blog.setAttributeNode(attr);
+	            blog.setAttributeNode(attr);*/
 	 
 	            //Элемент "Автор"
-	            Element employee = document.createElement("employee");
-	            Attr name1 = document.createAttribute("name");
-	            name1.setValue(name.getName());
-	            employee.setAttributeNode(name1);
-	            Attr name2 = document.createAttribute("surname");
-	            name2.setValue(name.getSurname());
-	            employee.setAttributeNode(name2);
-	            Attr name3 = document.createAttribute("secondName");
-	            name3.setValue(name.getSecondName());
-	            employee.setAttributeNode(name3);
-	            Attr degreen = document.createAttribute("degreeT");
-	            degreen.setValue(degreeName);
-	            employee.setAttributeNode(degreen);
-	            Attr degree1 = document.createAttribute("degree");
-	            degree1.setValue(degree);
-	            employee.setAttributeNode(degree1);
-	            Attr year1 = document.createAttribute("year");
-	            year1.setValue(year);
-	            employee.setAttributeNode(year1);
-	            blog.appendChild(employee);
 	            
-			}
+	            
+			//}
 		}
 		
+		
+	}
+	public static boolean findDepartment(Document document, String department, Node fin) {
+		NodeList dep = document.getElementsByTagName("department");
+		boolean f = false;
+		for(int i=0; i<dep.getLength(); i++) {
+			//faculty.equals(fac.item(i));
+			NamedNodeMap namedNodeMap = dep.item(i).getAttributes();
+			Node nodeAttr = namedNodeMap.getNamedItem("titleK");
+			if(department.equals(nodeAttr.getTextContent())) {
+				f = true;
+				fin = nodeAttr;
+				System.out.println(nodeAttr.getTextContent());
+			}
+		}
+		return f;		
 	}
 }

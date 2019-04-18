@@ -15,7 +15,8 @@ import org.xml.sax.helpers.DefaultHandler;
 public class SAXExample {
 	public static boolean isFound;
 	public static ArrayList<Lecturer> lecturers = new ArrayList<Lecturer>();
-
+	
+	
 	SAXExample() throws ParserConfigurationException, SAXException, IOException {
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		SAXParser parser = factory.newSAXParser();

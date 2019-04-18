@@ -102,6 +102,8 @@ public class Table {
 
 		run(new Table(), AREA_WIDTH, AREA_HIGHT);
 	}
+	
+	
 
 	public static void run(final Table frame, final int wigth, final int hight) {
 		SwingUtilities.invokeLater(new Runnable() {

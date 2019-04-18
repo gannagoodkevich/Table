@@ -1,62 +1,41 @@
 package controller;
 
 public class Lecturer {
-	FullName name;
-	String faculty;
-	String department;
+	String name;
+	String syrname;
+	String secondName;
 	String degree;
 	String degreeName;
 	String year;
 
-	Lecturer(FullName name) {
-		this.setName(name);
+	Lecturer(String name, String surname, String secondName) {
+		this.setName(name, surname, secondName);
 	}
 
-	Lecturer(FullName name, String faculty) {
-		this.setName(name);
-		this.setFaculty(faculty);
-	}
-
-	Lecturer(FullName name, String faculty, String department) {
-		this.setName(name);
-		this.setFaculty(faculty);
-		this.setDepartment(department);
-	}
-
-	Lecturer(FullName name, String faculty, String department, String degreeName) {
-		this.setName(name);
-		this.setFaculty(faculty);
-		this.setDepartment(department);
-		this.setDegreeName(degreeName);
-	}
-	
-	Lecturer(FullName name, String faculty, String department, String degreeName, String degree) {
-		this.setName(name);
-		this.setFaculty(faculty);
-		this.setDepartment(department);
-		this.setDegreeName(degreeName);
+	Lecturer(String name, String surname, String secondName, String degree) {
+		this.setName(name, surname, secondName);
 		this.setDegree(degree);
 	}
+
+
+	Lecturer(String name, String surname, String secondName, String degree, String degreeName) {
+		this.setName(name, surname, secondName);
+		this.setDegree(degree);
+		this.setDegreeName(degreeName);
+	}
 	
-	Lecturer(FullName name, String faculty, String department, String degreeName, String degree, String year) {
-		this.setName(name);
-		this.setFaculty(faculty);
-		this.setDepartment(department);
+	
+	Lecturer(String name, String surname, String secondName, String degreeName, String degree, String year) {
+		this.setName(name, surname, secondName);
 		this.setDegreeName(degreeName);
 		this.setDegree(degree);
 		this.setYear(year);
 	}
 	
-	public void setName(FullName name) {
+	public void setName(String name, String surname, String secondName) {
 		this.name = name;
-	}
-
-	public void setFaculty(String faculty) {
-		this.faculty = faculty;
-	}
-
-	public void setDepartment(String department) {
-		this.department = department;
+		this.syrname = surname;
+		this.secondName = secondName;
 	}
 	
 	public void setDegreeName(String degreeName) {
@@ -70,18 +49,18 @@ public class Lecturer {
 		this.year = year;
 	}
 	
-	public FullName getName() {
+	public String getName() {
 		return this.name;
 	}
-
-	public String getFaculty() {
-		return this.faculty;
-	}
-
-	public String getDepartment() {
-		return this.department;
+	
+	public String getSurname() {
+		return this.syrname;
 	}
 	
+	public String getSecondName() {
+		return this.secondName;
+	}
+
 	public String getDegreeName() {
 		return this.degreeName;
 	}

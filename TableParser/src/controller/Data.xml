@@ -42,6 +42,7 @@
             </departments>
         </faculty>
         <faculty titleF = "ИЭФ">
+        <departments>
             <department titleK="Менеджмента">
                 	<employee name="Беляцкая" surname = "Татьяна" secondName = "Николаевна" degreeT="доцент" degree = "кандидат экономических наук" year = "14"/>
                 	<employee name="Ермакова" surname = "Екатерина" secondName = "Витальевна" degreeT="доцент" degree = "кандидат экономических наук" year = "13"/>
@@ -52,6 +53,7 @@
                 	<employee name="Астрощенка" surname = "Натэлла" secondName = "Александровна" degreeT="старший преподаватель" degree = " - " year = "6"/>
                 	<employee name="Луцик" surname = "Юрий" secondName = "Александрович" degreeT="доцент" degree = "кандидат техническиз наук" year = "9"/>
                 </department>
+            </departments>
         </faculty>
         
         
@@ -96,6 +98,7 @@
             </departments>
         </faculty>
         <faculty titleF = "ФРЭ">
+        <departments>
             <department titleK="Менеджмента">
                 	<employee name="Беляцкая" surname = "Татьяна" secondName = "Николаевна" degreeT="доцент" degree = "кандидат экономических наук" year = "14"/>
                 	<employee name="Ермакова" surname = "Екатерина" secondName = "Витальевна" degreeT="доцент" degree = "кандидат экономических наук" year = "13"/>
@@ -106,6 +109,7 @@
                 	<employee name="Астрощенка" surname = "Натэлла" secondName = "Александровна" degreeT="старший преподаватель" degree = " - " year = "6"/>
                 	<employee name="Луцик" surname = "Юрий" secondName = "Александрович" degreeT="доцент" degree = "кандидат техническиз наук" year = "9"/>
                 </department>
+                </departments>
         </faculty>
     </faculties>
 </university>

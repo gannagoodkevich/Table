@@ -13,7 +13,7 @@
                 	<employee degree=" - " degreeT="преподаватель" name="Пацеева" secondName="Георгиевна" surname="OXXI" year="8"/>
                 	<employee degree="доктор технических наук" degreeT="профессор" name="Новик" secondName="Константинович" surname="Евгений" year="30"/>
                		<employee degree="кандидат технических наук" degreeT="доцент" name="Качалов" secondName="Леонидович" surname="Игорь" year="10"/>
-                </department>
+                <employee degree="кандидат мемосных наук" degreeT="профессор" name="Алеся" secondName="Кротая" surname="Витальевна" year="1000500"/></department>
                  <department titleK="Вычислительных методов и программирования">
                 	<employee degree="кандидат технических наук" degreeT="доцент" name="Кукин" secondName="Петрович" surname="Дмитрий" year="8"/>
                 	<employee degree=" - " degreeT="старший преподаватель" name="Шатилова" secondName="Олеговна" surname="Ольга" year="5"/>
@@ -41,6 +41,7 @@
             </departments>
         </faculty>
         <faculty titleF="ИЭФ">
+        <departments>
             <department titleK="Менеджмента">
                 	<employee degree="кандидат экономических наук" degreeT="доцент" name="Беляцкая" secondName="Николаевна" surname="Татьяна" year="14"/>
                 	<employee degree="кандидат экономических наук" degreeT="доцент" name="Ермакова" secondName="Витальевна" surname="Екатерина" year="13"/>
@@ -51,6 +52,7 @@
                 	<employee degree=" - " degreeT="старший преподаватель" name="Астрощенка" secondName="Александровна" surname="Натэлла" year="6"/>
                 	<employee degree="кандидат техническиз наук" degreeT="доцент" name="Луцик" secondName="Александрович" surname="Юрий" year="9"/>
                 </department>
+            </departments>
         </faculty>
         
         
@@ -67,7 +69,7 @@
                 	<employee degree=" - " degreeT="преподаватель" name="Пацеева" secondName="Георгиевна" surname="Анастасия" year="8"/>
                 	<employee degree="доктор технических наук" degreeT="профессор" name="Новик" secondName="Константинович" surname="Евгений" year="30"/>
                		<employee degree="кандидат технических наук" degreeT="доцент" name="Качалов" secondName="Леонидович" surname="Игорь" year="10"/>
-                </department>
+                <employee degree="кандидат мемосных наук" degreeT="профессор" name="Алеся" secondName="Кротая" surname="Витальевна" year="1000500"/></department>
                  <department titleK="Вычислительных методов и программирования">
                 	<employee degree="кандидат технических наук" degreeT="доцент" name="Кукин" secondName="Петрович" surname="Дмитрий" year="8"/>
                 	<employee degree=" - " degreeT="старший преподаватель" name="Шатилова" secondName="Олеговна" surname="Ольга" year="5"/>
@@ -93,8 +95,9 @@
                		<employee degree="доктор физико-математических наук" degreeT="профессор" name="Величко" secondName="Иванович" surname="Олег" year="9"/>
                 </department>
             </departments>
-        <departments><department titleK="Личная кафедра"><employee degree="кандидат мемосных наук" degreeT="профессор" name="Алеся" secondName="Кротая" surname="Витальевна" year="1000500"/></department></departments></faculty>
+        </faculty>
         <faculty titleF="ФРЭ">
+        <departments>
             <department titleK="Менеджмента">
                 	<employee degree="кандидат экономических наук" degreeT="доцент" name="Беляцкая" secondName="Николаевна" surname="Татьяна" year="14"/>
                 	<employee degree="кандидат экономических наук" degreeT="доцент" name="Ермакова" secondName="Витальевна" surname="Екатерина" year="13"/>
@@ -105,6 +108,7 @@
                 	<employee degree=" - " degreeT="старший преподаватель" name="Астрощенка" secondName="Александровна" surname="Натэлла" year="6"/>
                 	<employee degree="кандидат техническиз наук" degreeT="доцент" name="Луцик" secondName="Александрович" surname="Юрий" year="9"/>
                 </department>
+                </departments>
         </faculty>
     </faculties>
 </university>
