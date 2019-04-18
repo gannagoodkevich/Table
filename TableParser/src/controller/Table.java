@@ -43,19 +43,22 @@ public class Table {
 	public Table() throws ParserConfigurationException, SAXException, IOException {
 		main = new JFrame();
 		SAXExample sax = new SAXExample();
-		lecturer = sax.lecturers;
-		data = new String[lecturer.size()][headers.length];
-		int i = 0;
-		for (Lecturer lecturer : lecturer) {
-			data[i][0] = lecturer.getFaculty();
-			data[i][1] = lecturer.getDepartment();
-			data[i][2] = lecturer.getName().getName() + " " + lecturer.getName().getSurname() + ""
-					+ lecturer.getName().getSecondName();
-			data[i][3] = lecturer.getDegreeName();
-			data[i][4] = lecturer.getDegree();
-			data[i][5] = lecturer.getYear();
-			i++;
-
+		Uni uni = sax.uni;
+		data = new String[60][headers.length];
+		int l = 0;
+		for(int i=0; i< sax.uni.getLenght(); i++) {
+			for(int j=0; j< sax.uni.getFaculty(i).getLenght(); j++) {
+				for(int k = 0; k < sax.uni.getFaculty(i).getDepartment(j).getLenght(); k++) {
+					data[l][0] = sax.uni.getFaculty(i).getTitle();
+					data[l][1] = sax.uni.getFaculty(i).getDepartment(j).getTitle();
+					data[l][2] = sax.uni.getFaculty(i).getDepartment(j).getlecturer(k).getName() + " " + sax.uni.getFaculty(i).getDepartment(j).getlecturer(k).getSurname() + ""
+							+ sax.uni.getFaculty(i).getDepartment(j).getlecturer(k).getSecondName();
+					data[l][3] = sax.uni.getFaculty(i).getDepartment(j).getlecturer(k).getDegreeName();
+					data[l][4] = sax.uni.getFaculty(i).getDepartment(j).getlecturer(k).getDegree();
+					data[l][5] = sax.uni.getFaculty(i).getDepartment(j).getlecturer(k).getYear();
+					l++;
+				}
+			}
 		}
 
 		JTable table = new JTable(data, headers);

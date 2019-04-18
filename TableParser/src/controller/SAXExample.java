@@ -14,8 +14,8 @@ import org.xml.sax.helpers.DefaultHandler;
 
 public class SAXExample {
 	public static boolean isFound;
-	public static ArrayList<Lecturer> lecturers = new ArrayList<Lecturer>();
-	
+	//public static ArrayList<Lecturer> lecturers = new ArrayList<Lecturer>();
+	public static Uni uni = new Uni("BSUIR");
 	
 	SAXExample() throws ParserConfigurationException, SAXException, IOException {
 		SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -34,17 +34,36 @@ public class SAXExample {
 		if (!isFound)
 			System.out.println("Ёлемент не был найден.");*/
 
+		
+	}public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException {
+		SAXExample sax = new SAXExample();
+		for(int i=0; i< sax.uni.getLenght(); i++) {
+			for(int j=0; j< sax.uni.getFaculty(i).getLenght(); j++) {
+				for(int k = 0; k < sax.uni.getFaculty(i).getDepartment(j).getLenght(); k++) {
+					System.out.println(sax.uni.getTitle());
+					System.out.println(sax.uni.getFaculty(i).getTitle());
+					System.out.println(sax.uni.getFaculty(i).getDepartment(j).getTitle());
+					System.out.println(sax.uni.getFaculty(i).getDepartment(j).getlecturer(k).name);
+				}
+			}
+		}
+		
 	}
+	
+	
 
 	private static class XMLHandler extends DefaultHandler {
 
 		private String element;
 		boolean isEntered;
 
+		
+		
+		Faculty currfac;
+		Department currdep;
 		String name;
 		String surname;
 		String secondName;
-		FullName fullName;
 		String faculty;
 		String department;
 		String degree;
@@ -63,14 +82,17 @@ public class SAXExample {
 				for (int i = 0; i < length; i++) {
 					if (qName.equals("faculty")) {
 						faculty = attributes.getValue(i);
+						currfac  = new Faculty(faculty);
+						uni.addFaculty(currfac);
 					}
 					if (qName.equals("department")) {
 						department = attributes.getValue(i);
+						currdep = new Department(department);
+						currfac.addDepartment(currdep);
 					} else if (qName.equalsIgnoreCase("employee")) {
 						name = attributes.getValue("name");
 						surname = attributes.getValue("surname");
 						secondName = attributes.getValue("secondName");
-						fullName = new FullName(name, surname, secondName);
 						degreeName = attributes.getValue("degreeT");
 						degree = attributes.getValue("degree");
 						year = attributes.getValue("year");
@@ -89,8 +111,11 @@ public class SAXExample {
 			if (qName.equals(element))
 				isEntered = false;
 			if (qName.equals("employee")) {
-				lecturers.add(new Lecturer(fullName, faculty, department, degreeName, degree, year));
+				Lecturer lecturer  = new Lecturer(name, surname, secondName, degreeName, degree, year);
+				currdep.addLecturer(lecturer);
 			}
 		}
+		
+		
 	}
 }
