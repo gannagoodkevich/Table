@@ -1,4 +1,4 @@
-package controller;
+package model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,26 +6,35 @@ import java.util.List;
 public class Uni {
 	private String title;
 	private List<Faculty> faculties = new ArrayList<Faculty>();
-	
-	Uni(String title){
+
+	public Uni(String title) {
 		this.title = title;
 	}
-	
+
 	public String getTitle() {
 		return this.title;
 	}
-	
+
 	public Faculty getFaculty(int index) {
 		return faculties.get(index);
 	}
-	
+
+	public Faculty getFacultyByName(String name) {
+		Faculty fac = null;
+		for (Faculty faculty : faculties) {
+			if (name.equals(faculty.getTitle())) {
+				fac = new Faculty(faculty);
+			}
+		}
+		return fac;
+	}
+
 	public void addFaculty(Faculty faculty) {
 		faculties.add(faculty);
 	}
-	
 
 	public int getLenght() {
 		return faculties.size();
 	}
-	
+
 }

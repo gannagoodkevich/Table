@@ -12,17 +12,22 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import model.Department;
+import model.Faculty;
+import model.Lecturer;
+import model.Uni;
+
 public class SAXExample {
 	public static boolean isFound;
 	//public static ArrayList<Lecturer> lecturers = new ArrayList<Lecturer>();
-	public static Uni uni = new Uni("BSUIR");
+	public static Uni uni = new Uni("BSU");
 	
-	SAXExample() throws ParserConfigurationException, SAXException, IOException {
+	public SAXExample(String FileName) throws ParserConfigurationException, SAXException, IOException {
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		SAXParser parser = factory.newSAXParser();
 
 		XMLHandler handler = new XMLHandler("faculties");
-		parser.parse(new File("src/controller/Data.xml"), handler);
+		parser.parse(new File(FileName), handler);//"src/controller/Data.xml"
 		/*for (Lecturer lecturer : lecturers) {
 			System.out.println(lecturer.getFaculty());
 			System.out.println(lecturer.getDepartment());
@@ -35,21 +40,7 @@ public class SAXExample {
 			System.out.println("Ёлемент не был найден.");*/
 
 		
-	}public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException {
-		SAXExample sax = new SAXExample();
-		for(int i=0; i< sax.uni.getLenght(); i++) {
-			for(int j=0; j< sax.uni.getFaculty(i).getLenght(); j++) {
-				for(int k = 0; k < sax.uni.getFaculty(i).getDepartment(j).getLenght(); k++) {
-					System.out.println(sax.uni.getTitle());
-					System.out.println(sax.uni.getFaculty(i).getTitle());
-					System.out.println(sax.uni.getFaculty(i).getDepartment(j).getTitle());
-					System.out.println(sax.uni.getFaculty(i).getDepartment(j).getlecturer(k).name);
-				}
-			}
-		}
-		
-	}
-	
+	}	
 	
 
 	private static class XMLHandler extends DefaultHandler {

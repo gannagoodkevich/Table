@@ -1,4 +1,4 @@
-package controller;
+package model;
 
 public class Lecturer {
 	String name;
@@ -17,6 +17,12 @@ public class Lecturer {
 		this.setDegree(degree);
 	}
 
+	Lecturer(Lecturer lec){
+		this.setName(lec.getName(), lec.getSurname(), lec.getSecondName());
+		this.setDegreeName(lec.getDegreeName());
+		this.setDegree(lec.getDegree());
+		this.setYear(lec.getYear());
+	}
 
 	Lecturer(String name, String surname, String secondName, String degree, String degreeName) {
 		this.setName(name, surname, secondName);
@@ -25,7 +31,7 @@ public class Lecturer {
 	}
 	
 	
-	Lecturer(String name, String surname, String secondName, String degreeName, String degree, String year) {
+	public Lecturer(String name, String surname, String secondName, String degreeName, String degree, String year) {
 		this.setName(name, surname, secondName);
 		this.setDegreeName(degreeName);
 		this.setDegree(degree);
