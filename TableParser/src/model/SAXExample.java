@@ -14,13 +14,13 @@ import org.xml.sax.helpers.DefaultHandler;
 
 public class SAXExample {
 	public static boolean isFound;
-	public static Uni uni = new Uni("BSU");
+	public Uni uni = new Uni("BSU");
 
 	public SAXExample(String FileName) throws ParserConfigurationException, SAXException, IOException {
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		SAXParser parser = factory.newSAXParser();
 
-		XMLHandler handler = new XMLHandler("faculties");
+		XMLHandler handler = new XMLHandler("faculties", uni);
 		if(handler != null) {
 			parser.parse(new File(FileName), handler);
 		}
@@ -49,9 +49,13 @@ public class SAXExample {
 		String degree;
 		String degreeName;
 		String year;
+		private Uni uni;
 
-		public XMLHandler(String element) {
+		
+		
+		public XMLHandler(String element, Uni uni) {
 			this.element = element;
+			this.uni = uni;
 		}
 
 		@Override

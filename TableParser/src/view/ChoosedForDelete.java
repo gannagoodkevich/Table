@@ -265,7 +265,7 @@ public class ChoosedForDelete {
 			JOptionPane.showMessageDialog(null, pan, "Table", JOptionPane.OK_CANCEL_OPTION);
 			try {
 				DOMExample dom = new DOMExample(uni, t.FileName);
-				t.mytable.updateTable(uni);
+				t.currentTableWithLecturers.updateTable(uni);
 			} catch (ParserConfigurationException | TransformerException e1) {
 				e1.printStackTrace();
 			}

@@ -17,17 +17,9 @@ public class Run {
 	
 	public static void main(String[] args)
 			throws IOException, ParserConfigurationException, SAXException, TransformerException {
-		run(new WindowUserCom(), AREA_WIDTH, AREA_HIGHT);
+		WindowUserCom main = new WindowUserCom();
+		main.run(main, AREA_WIDTH, AREA_HIGHT);
 	}
 
-	public static void run(final WindowUserCom frame, final int wigth, final int hight) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				frame.main.setTitle(frame.getClass().getSimpleName());
-				frame.main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.main.setSize(wigth, hight);
-				frame.main.setVisible(true);
-			}
-		});
-	}
+	
 }

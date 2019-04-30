@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -68,10 +69,14 @@ public class TableModel {
 
 		data = rowList.toArray(new String[0][]);
 		List<String[]> dataCurr = new ArrayList<String[]>();
-		for (int i = numOfRowsStart; i < numOfRowsEnd; i++) {
-			dataCurr.add(new String[] { (String) data[i][0], (String) data[i][1], (String) data[i][2],
-					(String) data[i][3], (String) data[i][4], (String) data[i][5] });
-		}
+		if (rowList.size() < numOfRows) {
+			numOfRowsEnd = rowList.size();
+		} 
+			for (int i = numOfRowsStart; i < numOfRowsEnd; i++) {
+				dataCurr.add(new String[] { (String) data[i][0], (String) data[i][1], (String) data[i][2],
+						(String) data[i][3], (String) data[i][4], (String) data[i][5] });
+			}
+		
 		String[][] dataCurr1 = dataCurr.toArray(new String[0][]);
 		table = new JTable(dataCurr1, headers);
 		scroll = new JScrollPane(table);
@@ -98,6 +103,7 @@ public class TableModel {
 	public TableModel(Uni uni, List<String[]> rowList, JPanel window) {
 		this.uni = uni;
 		this.rowList = rowList;
+		window.setLayout(new BoxLayout(window, BoxLayout.X_AXIS));
 		search2Button = new JButton(new ImageIcon(PENCIL_PATH));
 		search3Button = new JButton(new ImageIcon(PENCIL_PATH));
 		firstButton = new JButton("Go to head");
@@ -110,14 +116,14 @@ public class TableModel {
 		table.setRowHeight(50);
 		window.add(search2Button);
 		window.add(search3Button);
-		search2Button.setBounds(1600, 100, 70, 70);
-		search3Button.setBounds(1500, 100, 70, 70);
+		// search2Button.setBounds(1600, 100, 70, 70);
+		// search3Button.setBounds(1500, 100, 70, 70);
 		window.add(firstButton);
-		firstButton.setBounds(1700, 100, 100, 70);
+		// firstButton.setBounds(1700, 100, 100, 70);
 		window.add(lastButton);
-		lastButton.setBounds(1370, 100, 100, 70);
+		// lastButton.setBounds(1370, 100, 100, 70);
 		window.add(changeRowsButton);
-		changeRowsButton.setBounds(1200, 100, 150, 70);
+		// changeRowsButton.setBounds(1200, 100, 150, 70);
 
 		listenerTurnLeft(search3Button);
 		listenerTurnRight(search2Button);
@@ -164,21 +170,26 @@ public class TableModel {
 
 				// int mod = rowList.size()%numOfRows;
 				// System.out.println(mod);
-				if (numOfRowsEnd != rowList.size()) {
-					if (numOfRowsEnd <= rowList.size() - numOfRows) {
-						numOfRowsEnd += numOfRows;
-						numOfRowsStart += numOfRows;
-					} else {
-						numOfRowsStart = numOfRowsEnd;
-						numOfRowsEnd = rowList.size();
-
-						/*
-						 * numOfRowsEnd = numOfRows; numOfRowsStart = 0;
-						 */
-					}
-				} else {
-					numOfRowsEnd = numOfRows;
+				if (rowList.size() <= numOfRows) {
+					numOfRowsEnd = rowList.size();
 					numOfRowsStart = 0;
+				} else {
+					if (numOfRowsEnd != rowList.size()) {
+						if (numOfRowsEnd <= rowList.size() - numOfRows) {
+							numOfRowsEnd += numOfRows;
+							numOfRowsStart += numOfRows;
+						} else {
+							numOfRowsStart = numOfRowsEnd;
+							numOfRowsEnd = rowList.size();
+
+							/*
+							 * numOfRowsEnd = numOfRows; numOfRowsStart = 0;
+							 */
+						}
+					} else {
+						numOfRowsEnd = numOfRows;
+						numOfRowsStart = 0;
+					}
 				}
 
 				List<String[]> dataCurr = new ArrayList<String[]>();
@@ -201,24 +212,28 @@ public class TableModel {
 		ActionListener actionListener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Pressed");
-				if (numOfRowsEnd == numOfRows) {
-					numOfRowsEnd =  rowList.size();
-					numOfRowsStart = numOfRowsEnd - rowList.size() % numOfRows;
+				if (rowList.size() <= numOfRows) {
+					numOfRowsEnd = rowList.size();
+					numOfRowsStart = 0;
 				} else {
-					if (numOfRowsEnd != rowList.size()) {
-						if (numOfRowsEnd >= 2 * numOfRows) {
-							numOfRowsEnd -= numOfRows;
-							numOfRowsStart -= numOfRows;
-						} else {
-							numOfRowsStart = 0;
-							numOfRowsEnd = numOfRows;
-						}
+					if (numOfRowsEnd == numOfRows) {
+						numOfRowsEnd = rowList.size();
+						numOfRowsStart = numOfRowsEnd - rowList.size() % numOfRows;
 					} else {
-						numOfRowsEnd = rowList.size() - rowList.size() % numOfRows;
-						numOfRowsStart = numOfRowsEnd - numOfRows;
+						if (numOfRowsEnd != rowList.size()) {
+							if (numOfRowsEnd >= 2 * numOfRows) {
+								numOfRowsEnd -= numOfRows;
+								numOfRowsStart -= numOfRows;
+							} else {
+								numOfRowsStart = 0;
+								numOfRowsEnd = numOfRows;
+							}
+						} else {
+							numOfRowsEnd = rowList.size() - rowList.size() % numOfRows;
+							numOfRowsStart = numOfRowsEnd - numOfRows;
+						}
 					}
 				}
-
 				List<String[]> dataCurr = new ArrayList<String[]>();
 				for (int i = numOfRowsStart; i < numOfRowsEnd; i++) {
 					dataCurr.add(new String[] { (String) data[i][0], (String) data[i][1], (String) data[i][2],
@@ -263,7 +278,7 @@ public class TableModel {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Pressed");
 				numOfRowsEnd = rowList.size();
-				numOfRowsStart = rowList.size() - numOfRows;
+				numOfRowsStart = rowList.size() - rowList.size() % numOfRows;
 
 				List<String[]> dataCurr = new ArrayList<String[]>();
 				for (int i = numOfRowsStart; i < numOfRowsEnd; i++) {

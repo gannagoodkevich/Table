@@ -51,6 +51,8 @@ public class Department {
 		List<Lecturer> lec = new ArrayList<Lecturer>();
 		int y1 = Integer.parseInt(year1);
 		int y2 = Integer.parseInt(year2);
+		System.out.println(year1);
+		System.out.println(year2);
 		for (Lecturer lecturer : lecturers) {
 			if (Integer.parseInt(lecturer.getYear()) >= y1 && Integer.parseInt(lecturer.getYear()) <= y2) {
 				lec.add(lecturer);

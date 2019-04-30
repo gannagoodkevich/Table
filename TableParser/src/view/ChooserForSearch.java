@@ -209,31 +209,27 @@ public class ChooserForSearch {
 		myPanel.add(yearFieldFrom);
 		myPanel.add(new JLabel("Стаж работы по:"));
 		myPanel.add(yearFieldTo);
+		JPanel pan = new JPanel();
 		int result = JOptionPane.showConfirmDialog(null, myPanel, "Введите данные для поиска и удаления",
 				JOptionPane.OK_CANCEL_OPTION);
+		String uare1 = yearFieldFrom.getText();
+		String uare2 = yearFieldTo.getText();
 		if (result == JOptionPane.OK_OPTION) {
 			List<String[]> rowList = new ArrayList<String[]>();
 			for (int i = 0; i < uni.getLenght(); i++) {
 				for (int j = 0; j < uni.getFaculty(i).getLenght(); j++) {
-					if (uni.getFaculty(i).getDepartment(j).getLectureByYear(yearFieldFrom.getText(),
-							yearFieldTo.getText()) != null) {
+					if (uni.getFaculty(i).getDepartment(j).getLectureByYear(uare1, uare2) != null) {
 						for (Lecturer lecturer : uni.getFaculty(i).getDepartment(j)
-								.getLectureByYear(yearFieldFrom.getText(), yearFieldTo.getText())) {
+								.getLectureByYear(uare1, uare2)) {
 							rowList.add(new String[] { uni.getFaculty(i).getTitle(),
 									uni.getFaculty(i).getDepartment(j).getTitle(),
 									lecturer.getName() + " " + lecturer.getSurname() + " " + lecturer.getSecondName(),
 									lecturer.getDegreeName(), lecturer.getDegree(), lecturer.getYear() });
 						}
 					}
+					
 				}
-			}
-			//String[][] data = rowList.toArray(new String[0][]);
-			JPanel pan = new JPanel();
-
-			/*JTable table1 = new JTable(data, headers);
-			scroll = new JScrollPane(table1);
-			table1.setPreferredScrollableViewportSize(new Dimension(1800, 500));
-			table1.setRowHeight(50);*/
+			}	
 			TableModel currTable = new TableModel(uni, rowList, pan);
 			pan.add(currTable.scroll);
 			//pan.add(scroll);

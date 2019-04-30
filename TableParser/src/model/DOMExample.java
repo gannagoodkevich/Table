@@ -61,6 +61,8 @@ public class DOMExample {
 
 		trans.transform(domSource, res);
 	}
+	
+	
 
 	public static boolean findDepartment(Document document, String department, Node fin) {
 		NodeList dep = document.getElementsByTagName("department");
