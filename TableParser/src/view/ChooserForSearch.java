@@ -1,4 +1,4 @@
-package controller;
+package view;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -21,17 +21,17 @@ import javax.swing.UIManager;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
+import model.DOMExample;
 import model.Lecturer;
 import model.Uni;
-import view.Table;
 
-public class Chooser {
-	
+public class ChooserForSearch {
+
 	Object[] headers = { "Факультет", "Название кафедры", "ФИО преподавателя", "Ученое звание", "Ученая степень",
-	"Стаж работы" };
+			"Стаж работы" };
 	JScrollPane scroll;
 	JTable table;
-	Table t;
+	WindowUserCom t;
 
 	public void listenerSearchChooser(JButton button, Uni uni) {
 		ActionListener actionListener = new ActionListener() {
@@ -40,7 +40,7 @@ public class Chooser {
 				myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
 
 				Object[] options = { "Faculty && DegreeName", "Name && Department", "Year" };
-				int result = JOptionPane.showOptionDialog(null, myPanel, "Введите данные о новом преподавателе",
+				int result = JOptionPane.showOptionDialog(null, myPanel, "Выберите способ поиска для удаления",
 						JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 
 				if (result == 0) {
@@ -90,43 +90,41 @@ public class Chooser {
 		myPanel.add(new JLabel("Ученое звание:"));
 		myPanel.add(comboBoxDn);
 
-		int result = JOptionPane.showConfirmDialog(null, myPanel, "Введите данные о новом преподавателе",
+		int result = JOptionPane.showConfirmDialog(null, myPanel, "Введите данные для поиска и удаления",
 				JOptionPane.OK_CANCEL_OPTION);
 		if (result == JOptionPane.OK_OPTION) {
 			List<String[]> rowList = new ArrayList<String[]>();
-			
 
 			for (int j = 0; j < uni.getFacultyByName((String) comboBoxF.getSelectedItem()).getLenght(); j++) {
 				if (uni.getFacultyByName((String) comboBoxF.getSelectedItem()).getDepartment(j)
 						.getLectureByDegreeName((String) comboBoxDn.getSelectedItem()) != null) {
 					for (Lecturer lecturer : uni.getFacultyByName((String) comboBoxF.getSelectedItem()).getDepartment(j)
 							.getLectureByDegreeName((String) comboBoxDn.getSelectedItem())) {
-						 rowList.add(new String[] {  uni.getFacultyByName((String) comboBoxF.getSelectedItem()).getTitle(), uni.getFacultyByName((String) comboBoxF.getSelectedItem()).getDepartment(j)
-									.getTitle(), lecturer.getName() + " " + lecturer.getSurname() + " " + lecturer.getSecondName(), lecturer.getDegreeName(), lecturer.getDegree(), lecturer.getYear()});
+						rowList.add(new String[] {
+								uni.getFacultyByName((String) comboBoxF.getSelectedItem()).getTitle(),
+								uni.getFacultyByName((String) comboBoxF.getSelectedItem()).getDepartment(j).getTitle(),
+								lecturer.getName() + " " + lecturer.getSurname() + " " + lecturer.getSecondName(),
+								lecturer.getDegreeName(), lecturer.getDegree(), lecturer.getYear() });
 
 					}
 				}
 
 			}
-			String[][] data = rowList.toArray(new String[0][]);
+			//String[][] data = rowList.toArray(new String[0][]);
 			JPanel pan = new JPanel();
 
-			JTable table1 = new JTable(data, headers);
+			/*JTable table1 = new JTable(data, headers);
 			scroll = new JScrollPane(table1);
 			table1.setPreferredScrollableViewportSize(new Dimension(1800, 500));
-			table1.setRowHeight(50);
+			table1.setRowHeight(50);*/
+			
+			TableModel currTable = new TableModel(uni, rowList, pan);
+			pan.add(currTable.scroll);
 
-			pan.add(scroll);
 			UIManager.put("OptionPane.minimumSize", new Dimension(1800, 500));
 
 			JOptionPane.showMessageDialog(null, pan, "Table", JOptionPane.OK_CANCEL_OPTION);
 
-			try {
-				DOMExample dom = new DOMExample(uni, t.FileName);
-				updateTable(uni);
-			} catch (ParserConfigurationException | TransformerException e1) {
-				e1.printStackTrace();
-			}
 		}
 
 	}
@@ -160,10 +158,9 @@ public class Chooser {
 		myPanel.add(new JLabel("Кафедра:"));
 		myPanel.add(comboBoxD);
 
-		int result = JOptionPane.showConfirmDialog(null, myPanel, "Введите данные ", JOptionPane.OK_CANCEL_OPTION);
+		int result = JOptionPane.showConfirmDialog(null, myPanel, "Введите данные дляпоиска и удаления",
+				JOptionPane.OK_CANCEL_OPTION);
 		if (result == JOptionPane.OK_OPTION) {
-			
-			// searching tamplate
 			List<String[]> rowList = new ArrayList<String[]>();
 			for (int i = 0; i < uni.getLenght(); i++) {
 				if (uni.getFaculty(i).getDepartmentByName((String) comboBoxD.getSelectedItem()) != null) {
@@ -172,19 +169,24 @@ public class Chooser {
 						for (Lecturer lecturer : uni.getFaculty(i)
 								.getDepartmentByName((String) comboBoxD.getSelectedItem())
 								.getLectureByName(nameField.getText())) {
-							 rowList.add(new String[] {  uni.getFaculty(i).getTitle(), uni.getFaculty(i).getDepartmentByName((String) comboBoxD.getSelectedItem())
-										.getTitle(), lecturer.getName() + " " + lecturer.getSurname() + " " + lecturer.getSecondName(), lecturer.getDegreeName(), lecturer.getDegree(), lecturer.getYear()});
+							rowList.add(new String[] { uni.getFaculty(i).getTitle(),
+									uni.getFaculty(i).getDepartmentByName((String) comboBoxD.getSelectedItem())
+											.getTitle(),
+									lecturer.getName() + " " + lecturer.getSurname() + " " + lecturer.getSecondName(),
+									lecturer.getDegreeName(), lecturer.getDegree(), lecturer.getYear() });
 						}
 					}
 				}
 			}
-			String[][] data = rowList.toArray(new String[0][]);
+			//String[][] data = rowList.toArray(new String[0][]);
 			JPanel pan = new JPanel();
 
-			JTable table1 = new JTable(data, headers);
+			/*JTable table1 = new JTable(data, headers);
 			scroll = new JScrollPane(table1);
 			table1.setPreferredScrollableViewportSize(new Dimension(1800, 500));
-			table1.setRowHeight(50);
+			table1.setRowHeight(50);*/
+			TableModel currTable = new TableModel(uni, rowList, pan);
+			pan.add(currTable.scroll);
 
 			pan.add(scroll);
 			UIManager.put("OptionPane.minimumSize", new Dimension(1800, 500));
@@ -203,11 +205,11 @@ public class Chooser {
 		JPanel myPanel = new JPanel();
 		myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
 
-		myPanel.add(new JLabel("Стаж работы from:"));
+		myPanel.add(new JLabel("Стаж работы с:"));
 		myPanel.add(yearFieldFrom);
-		myPanel.add(new JLabel("Стаж работы to:"));
+		myPanel.add(new JLabel("Стаж работы по:"));
 		myPanel.add(yearFieldTo);
-		int result = JOptionPane.showConfirmDialog(null, myPanel, "Введите данные о новом преподавателе",
+		int result = JOptionPane.showConfirmDialog(null, myPanel, "Введите данные для поиска и удаления",
 				JOptionPane.OK_CANCEL_OPTION);
 		if (result == JOptionPane.OK_OPTION) {
 			List<String[]> rowList = new ArrayList<String[]>();
@@ -217,51 +219,28 @@ public class Chooser {
 							yearFieldTo.getText()) != null) {
 						for (Lecturer lecturer : uni.getFaculty(i).getDepartment(j)
 								.getLectureByYear(yearFieldFrom.getText(), yearFieldTo.getText())) {
-							rowList.add(new String[] {  uni.getFaculty(i).getTitle(), uni.getFaculty(i).getDepartment(j)
-									.getTitle(), lecturer.getName() + " " + lecturer.getSurname() + " " + lecturer.getSecondName(), lecturer.getDegreeName(), lecturer.getDegree(), lecturer.getYear()});
+							rowList.add(new String[] { uni.getFaculty(i).getTitle(),
+									uni.getFaculty(i).getDepartment(j).getTitle(),
+									lecturer.getName() + " " + lecturer.getSurname() + " " + lecturer.getSecondName(),
+									lecturer.getDegreeName(), lecturer.getDegree(), lecturer.getYear() });
+						}
 					}
 				}
 			}
+			//String[][] data = rowList.toArray(new String[0][]);
+			JPanel pan = new JPanel();
+
+			/*JTable table1 = new JTable(data, headers);
+			scroll = new JScrollPane(table1);
+			table1.setPreferredScrollableViewportSize(new Dimension(1800, 500));
+			table1.setRowHeight(50);*/
+			TableModel currTable = new TableModel(uni, rowList, pan);
+			pan.add(currTable.scroll);
+			//pan.add(scroll);
+			UIManager.put("OptionPane.minimumSize", new Dimension(1800, 500));
+
+			JOptionPane.showMessageDialog(null, pan, "Table", JOptionPane.OK_CANCEL_OPTION);
 		}
-		String[][] data = rowList.toArray(new String[0][]);
-		JPanel pan = new JPanel();
-
-		JTable table1 = new JTable(data, headers);
-		scroll = new JScrollPane(table1);
-		table1.setPreferredScrollableViewportSize(new Dimension(1800, 500));
-		table1.setRowHeight(50);
-
-		pan.add(scroll);
-		UIManager.put("OptionPane.minimumSize", new Dimension(1800, 500));
-
-		JOptionPane.showMessageDialog(null, pan, "Table", JOptionPane.OK_CANCEL_OPTION);
-			try {
-				DOMExample dom = new DOMExample(uni, t.FileName);
-				updateTable(uni);
-			} catch (ParserConfigurationException | TransformerException e1) {
-				e1.printStackTrace();
-			}
-		}
-	}
-
-	public void updateTable(Uni uni) {
-		List<String[]> rowList = new ArrayList<String[]>();
-		for (int i = 0; i < uni.getLenght(); i++) {
-			for (int j = 0; j < uni.getFaculty(i).getLenght(); j++) {
-				for (int k = 0; k < uni.getFaculty(i).getDepartment(j).getLenght(); k++) {
-					 rowList.add(new String[] { uni.getFaculty(i).getTitle(), uni.getFaculty(i).getDepartment(j).getTitle(), uni.getFaculty(i).getDepartment(j).getlecturer(k).getName() + " "
-								+ uni.getFaculty(i).getDepartment(j).getlecturer(k).getSurname() + " "
-								+ uni.getFaculty(i).getDepartment(j).getlecturer(k).getSecondName(), uni.getFaculty(i).getDepartment(j).getlecturer(k).getDegreeName(),
-								uni.getFaculty(i).getDepartment(j).getlecturer(k).getDegree(), uni.getFaculty(i).getDepartment(j).getlecturer(k).getYear()});
-				}
-			}
-		}
-		String[][] data = rowList.toArray(new String[0][]);
-		table = new JTable(data, headers);
-		table.repaint();
-		table.setPreferredScrollableViewportSize(new Dimension(400, 500));
-		table.setRowHeight(50);
-		scroll.setViewportView(table);
 	}
 
 }

@@ -1,4 +1,4 @@
-package controller;
+package view;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -21,18 +21,18 @@ import javax.swing.UIManager;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
+import model.DOMExample;
 import model.Lecturer;
 import model.Uni;
-import view.Table;
 
 public class ChoosedForDelete {
 	Object[] headers = { "Факультет", "Название кафедры", "ФИО преподавателя", "Ученое звание", "Ученая степень",
 			"Стаж работы" };
 	JScrollPane scroll;
 	JTable table;
-	Table t;
+	WindowUserCom t;
 
-	public ChoosedForDelete(Table t) {
+	public ChoosedForDelete(WindowUserCom t) {
 		this.t = t;
 	}
 
@@ -93,7 +93,7 @@ public class ChoosedForDelete {
 		myPanel.add(new JLabel("Ученое звание:"));
 		myPanel.add(comboBoxDn);
 		int numberOfDelete = 0;
-		int result = JOptionPane.showConfirmDialog(null, myPanel, "Введите данные о новом преподавателе",
+		int result = JOptionPane.showConfirmDialog(null, myPanel, "Выберите способ поиска",
 				JOptionPane.OK_CANCEL_OPTION);
 		if (result == JOptionPane.OK_OPTION) {
 			List<String[]> rowList = new ArrayList<String[]>();
@@ -119,21 +119,21 @@ public class ChoosedForDelete {
 			String[][] data = rowList.toArray(new String[0][]);
 			JPanel pan = new JPanel();
 
-			JTable table1 = new JTable(data, headers);
+			/*JTable table1 = new JTable(data, headers);
 			scroll = new JScrollPane(table1);
 			table1.setPreferredScrollableViewportSize(new Dimension(1800, 500));
 			table1.setRowHeight(50);
-
 			pan.add(scroll);
-			pan.add(new JLabel("Факультет:"+ numberOfDelete));
+			TableModel currTable = new TableModel(data, pan);
+			pan.add(currTable.scroll);*/
+			pan.add(new JLabel(" " + numberOfDelete));
 			UIManager.put("OptionPane.minimumSize", new Dimension(1800, 500));
 
 			JOptionPane.showMessageDialog(null, pan, "Table", JOptionPane.OK_CANCEL_OPTION);
 
 			try {
 				DOMExample dom = new DOMExample(uni, t.FileName);
-				//t.updateTable(uni);
-				t.mytable.updateTable(uni);
+				//t.mytable.updateTable(uni);
 			} catch (ParserConfigurationException | TransformerException e1) {
 				e1.printStackTrace();
 			}
@@ -143,7 +143,7 @@ public class ChoosedForDelete {
 
 	public void listenerSearchByName(Uni uni) {
 
-		JTextField nameField = new JTextField(20);
+		JTextField nameField = new JTextField();
 
 		String[] faculties = new String[uni.getLenght()];
 		int lengthF = 0;
@@ -170,10 +170,10 @@ public class ChoosedForDelete {
 		myPanel.add(new JLabel("Кафедра:"));
 		myPanel.add(comboBoxD);
 
-		int result = JOptionPane.showConfirmDialog(null, myPanel, "Введите данные ", JOptionPane.OK_CANCEL_OPTION);
+		int result = JOptionPane.showConfirmDialog(null, myPanel, "Введите данные для поиска",
+				JOptionPane.OK_CANCEL_OPTION);
 		if (result == JOptionPane.OK_OPTION) {
 			int numberOfDelete = 0;
-			// searching tamplate
 			List<String[]> rowList = new ArrayList<String[]>();
 			for (int i = 0; i < uni.getLenght(); i++) {
 				if (uni.getFaculty(i).getDepartmentByName((String) comboBoxD.getSelectedItem()) != null) {
@@ -201,16 +201,13 @@ public class ChoosedForDelete {
 			scroll = new JScrollPane(table1);
 			table1.setPreferredScrollableViewportSize(new Dimension(1800, 500));
 			table1.setRowHeight(50);
-			pan.add(new JLabel("Факультет:"+ numberOfDelete));
-
 			pan.add(scroll);
+			pan.add(new JLabel(" " + numberOfDelete));
 			UIManager.put("OptionPane.minimumSize", new Dimension(1800, 500));
-			
 			JOptionPane.showMessageDialog(null, pan, "Table", JOptionPane.OK_CANCEL_OPTION);
-
 			try {
 				DOMExample dom = new DOMExample(uni, t.FileName);
-				t.mytable.updateTable(uni);
+				//t.mytable.updateTable(uni);
 				updateTable(uni);
 			} catch (ParserConfigurationException | TransformerException e1) {
 				e1.printStackTrace();
@@ -228,13 +225,13 @@ public class ChoosedForDelete {
 		JPanel myPanel = new JPanel();
 		myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
 
-		myPanel.add(new JLabel("Стаж работы from:"));
+		myPanel.add(new JLabel("Стаж работы с:"));
 		myPanel.add(yearFieldFrom);
-		myPanel.add(new JLabel("Стаж работы to:"));
+		myPanel.add(new JLabel("Стаж работы по:"));
 		myPanel.add(yearFieldTo);
-		int result = JOptionPane.showConfirmDialog(null, myPanel, "Введите данные о новом преподавателе",
+		int result = JOptionPane.showConfirmDialog(null, myPanel, "Введите данные для поиска",
 				JOptionPane.OK_CANCEL_OPTION);
-		int numberOfDelete=0;
+		int numberOfDelete = 0;
 		if (result == JOptionPane.OK_OPTION) {
 			List<String[]> rowList = new ArrayList<String[]>();
 			for (int i = 0; i < uni.getLenght(); i++) {
@@ -255,20 +252,19 @@ public class ChoosedForDelete {
 			}
 			String[][] data = rowList.toArray(new String[0][]);
 			JPanel pan = new JPanel();
-
+			//TableModel table = new TableModel(data);
 			JTable table1 = new JTable(data, headers);
 			scroll = new JScrollPane(table1);
 			table1.setPreferredScrollableViewportSize(new Dimension(1800, 500));
 			table1.setRowHeight(50);
-
+			//pan.add(table.scroll);
 			pan.add(scroll);
-			pan.add(new JLabel("Факультет:"+ numberOfDelete));
+			pan.add(new JLabel(" " + numberOfDelete));
 			UIManager.put("OptionPane.minimumSize", new Dimension(1800, 500));
 
 			JOptionPane.showMessageDialog(null, pan, "Table", JOptionPane.OK_CANCEL_OPTION);
 			try {
 				DOMExample dom = new DOMExample(uni, t.FileName);
-				//t.updateTable(uni);
 				t.mytable.updateTable(uni);
 			} catch (ParserConfigurationException | TransformerException e1) {
 				e1.printStackTrace();

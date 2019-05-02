@@ -1,129 +1,101 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
 import org.xml.sax.SAXException;
 
-import controller.ChoosedForDelete;
-import controller.Chooser;
-import controller.DOMExample;
-import controller.SAXExample;
-import javafx.scene.paint.Color;
+import model.DOMExample;
 import model.Lecturer;
-import model.TableModel;
+import model.SAXExample;
 import model.Uni;
 
-public class Table {
+public class WindowUserCom {
 
-	private static final int AREA_WIDTH = 1920;
-	private static final int AREA_HIGHT = 1080;
 	private static final String PENCIL_PATH = "src/arrow.png";
 
-	JFrame main;
-	Object[] headers = { "Факультет", "Название кафедры", "ФИО преподавателя", "Ученое звание", "Ученая степень",
-			"Стаж работы" };
+	public JFrame main;
+	Object[] headers = { "Р¤Р°РєСѓР»СЊС‚РµС‚", "РќР°Р·РІР°РЅРёРµ РєР°С„РµРґСЂС‹", "Р¤РРћ РїСЂРµРїРѕРґР°РІР°С‚РµР»СЏ", "РЈС‡РµРЅРѕРµ Р·РІР°РЅРёРµ", "РЈС‡РµРЅР°СЏ СЃС‚РµРїРµРЅСЊ",
+			"РЎС‚Р°Р¶ СЂР°Р±РѕС‚С‹" };
 
-	Object[][] data;
-
-	JTable table;
-	JScrollPane scroll;
-	List<String[]> rowList;
 	public String FileName;
-
-	int numOfRows;
-	int numOfRowsEnd;
-	int numOfRowsStart;
 
 	Uni uni;
 	public TableModel mytable;
 
-	public Table() throws ParserConfigurationException, SAXException, IOException, TransformerException {
+	public WindowUserCom() throws ParserConfigurationException, SAXException, IOException, TransformerException {
 		main = new JFrame();
-		String[] rows = { "src/controller/BSUIR.xml",  "src/controller/BSU.xml" };
+		String[] rows = { "src/controller/BSUIR.xml", "src/controller/BSU.xml" };
 		JPanel curr = new JPanel();
 		JComboBox<String> comboBoxD = new JComboBox<String>(rows);
 		curr.add(comboBoxD);
-		JOptionPane.showConfirmDialog(null, curr, "Введите данные ", JOptionPane.OK_CANCEL_OPTION);
+		JOptionPane.showConfirmDialog(null, curr, "Lalala ", JOptionPane.OK_CANCEL_OPTION);
 		FileName = (String) comboBoxD.getSelectedItem();
 		SAXExample sax = new SAXExample(FileName);
 		uni = sax.uni;
-		// data = new String[60][headers.length];
-		mytable = new TableModel(uni);
-		main.add(mytable.scroll, BorderLayout.BEFORE_FIRST_LINE);
 
 		JButton searchButton = new JButton("Add");
 		JButton search1Button = new JButton("Search");
 		JButton deleteButton = new JButton("Delete");
-		JButton firstButton = new JButton("Go to head");
+		/*JButton firstButton = new JButton("Go to head");
 		JButton lastButton = new JButton("Go to tail");
 		JButton changeRowsButton = new JButton("Change rows");
 		JButton search2Button = new JButton(new ImageIcon(PENCIL_PATH));
-		JButton search3Button = new JButton(new ImageIcon(PENCIL_PATH));
+		JButton search3Button = new JButton(new ImageIcon(PENCIL_PATH));*/
 		JPanel mainPanel = new JPanel();
+		
+		
 		main.add(mainPanel, BorderLayout.NORTH);
+		TableModel mytable = new TableModel(uni, mainPanel);
+		main.add(mytable.scroll, BorderLayout.BEFORE_FIRST_LINE);
 		mainPanel.setBounds(50, 550, 1800, 500);
-		java.awt.Color color = new java.awt.Color(14, 45, 67, 90);
-		mainPanel.setBackground(color);
-		// mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
 		mainPanel.setLayout(null);
 		mainPanel.add(searchButton);
-		searchButton.setBounds(100, 100, 100, 70);
+		searchButton.setBounds(0, 100, 100, 70);
 		mainPanel.add(search1Button);
-		search1Button.setBounds(250, 100, 100, 70);
-		mainPanel.add(search2Button);
+		search1Button.setBounds(150, 100, 100, 70);
+		/*mainPanel.add(search2Button);
 		search2Button.setBounds(1600, 100, 70, 70);
-		mainPanel.add(search3Button);
 		search3Button.setBounds(1500, 100, 70, 70);
 		mainPanel.add(firstButton);
-		firstButton.setBounds(1700, 100, 70, 70);
+		firstButton.setBounds(1700, 100, 100, 70);
 		mainPanel.add(lastButton);
-		lastButton.setBounds(1400, 100, 70, 70);
+		lastButton.setBounds(1370, 100, 100, 70);
 		mainPanel.add(changeRowsButton);
-		changeRowsButton.setBounds(1300, 100, 70, 70);
+		changeRowsButton.setBounds(1200, 100, 150, 70);
+		mainPanel.add(search3Button);*/
 		mainPanel.add(deleteButton);
-		deleteButton.setBounds(400, 100, 100, 70);
-		// searchButton.addActionListener(listener);
-		listenerAdd(searchButton); //that should be in code!!!!
-		Chooser chooser = new Chooser();
+		deleteButton.setBounds(300, 100, 100, 70);
+		JLabel labl = new JLabel("Number of elements: " + mytable.rowList.size());
+		mainPanel.add(labl);
+		labl.setBounds(750, 100, 200, 70);
+		JLabel labl1 = new JLabel("Number of elements on page: " + mytable.numOfRows);
+		mainPanel.add(labl1);
+		labl1.setBounds(550, 100, 200, 70);
+		listenerAdd(searchButton); 
+		ChooserForSearch chooser = new ChooserForSearch();
 		chooser.listenerSearchChooser(search1Button, uni);
 		ChoosedForDelete delete = new ChoosedForDelete(this);
 		delete.listenerSearchChooser(deleteButton, uni);
-		mytable.listenerTurnLeft(search3Button);
-		mytable.listenerTurnRight(search2Button);
-		mytable.listenerToHead(firstButton);
-		mytable.listenerToTail(lastButton);
-		mytable.listenerChangeNum(changeRowsButton);
 		main.setVisible(true);
 	}
-	
+
 	public void listenerAdd(JButton button) {
 		ActionListener actionListener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -160,36 +132,34 @@ public class Table {
 
 				JPanel myPanel = new JPanel();
 				myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
-				myPanel.add(new JLabel("Фамилия:"));
+				myPanel.add(new JLabel("Р¤Р°РјРёР»РёСЏ:"));
 				myPanel.add(nameField);
-				myPanel.add(new JLabel("Имя:"));
+				myPanel.add(new JLabel("РРјСЏ"));
 				myPanel.add(surnameField);
-				myPanel.add(new JLabel("Отчество:"));
+				myPanel.add(new JLabel("РћС‚С‡РµСЃС‚РІРѕ:"));
 				myPanel.add(secondNameField);
-				myPanel.add(new JLabel("Факультет:"));
+				myPanel.add(new JLabel("Р¤Р°РєСѓР»СЊС‚РµС‚:"));
 				myPanel.add(comboBoxF);
-				myPanel.add(new JLabel("Кафедра:"));
+				myPanel.add(new JLabel("РљР°С„РµРґСЂР°:"));
 				myPanel.add(comboBoxD);
-				myPanel.add(new JLabel("Ученое звание:"));
+				myPanel.add(new JLabel("РЈС‡РµРЅРѕРµ Р·РІР°РЅРёРµ:"));
 				myPanel.add(comboBoxDn);
-				myPanel.add(new JLabel("Ученая степень:"));
+				myPanel.add(new JLabel("РЈС‡РµРЅР°СЏ СЃС‚РµРїРµРЅСЊ:"));
 				myPanel.add(comboBoxDg);
-				myPanel.add(new JLabel("Стаж работы:"));
+				myPanel.add(new JLabel("РЎС‚Р°Р¶ СЂР°Р±РѕС‚С‹:"));
 				myPanel.add(yearField);
 
-				int result = JOptionPane.showConfirmDialog(null, myPanel, "Введите данные о новом преподавателе",
+				int result = JOptionPane.showConfirmDialog(null, myPanel, "Р’РІРµРґРёС‚Рµ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РЅРѕРІРѕРј РїСЂРµРїРѕРґР°РІР°С‚РµР»Рµ",
 						JOptionPane.OK_CANCEL_OPTION);
 				if (result == JOptionPane.OK_OPTION) {
 					if (uni.getFacultyByName((String) comboBoxF.getSelectedItem())
 							.getDepartmentByName((String) comboBoxD.getSelectedItem())
 							.getLectureByInfo(nameField.getText(), surnameField.getText(), secondNameField.getText(),
-									 (String) comboBoxDn.getSelectedItem(), (String) comboBoxDg.getSelectedItem(),
+									(String) comboBoxDn.getSelectedItem(), (String) comboBoxDg.getSelectedItem(),
 									yearField.getText()) == null) {
-
-						// adding
 						Lecturer lect = new Lecturer(nameField.getText(), surnameField.getText(),
-								secondNameField.getText(), 
-								(String) comboBoxDn.getSelectedItem(), (String) comboBoxDg.getSelectedItem(), yearField.getText());
+								secondNameField.getText(), (String) comboBoxDn.getSelectedItem(),
+								(String) comboBoxDg.getSelectedItem(), yearField.getText());
 						uni.getFacultyByName((String) comboBoxF.getSelectedItem())
 								.getDepartmentByName((String) comboBoxD.getSelectedItem()).addLecturer(lect);
 						try {
@@ -203,23 +173,7 @@ public class Table {
 
 			}
 		};
-		mytable.updateTable(uni);
+		//mytable.updateTable(uni);
 		button.addActionListener(actionListener);
-	}
-
-	public static void main(String[] args)
-			throws IOException, ParserConfigurationException, SAXException, TransformerException {
-		run(new Table(), AREA_WIDTH, AREA_HIGHT);
-	}
-
-	public static void run(final Table frame, final int wigth, final int hight) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				frame.main.setTitle(frame.getClass().getSimpleName());
-				frame.main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.main.setSize(wigth, hight);
-				frame.main.setVisible(true);
-			}
-		});
 	}
 }

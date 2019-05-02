@@ -1,55 +1,44 @@
-package controller;
+package model;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import javax.xml.transform.TransformerException;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import model.Department;
-import model.Faculty;
-import model.Lecturer;
-import model.Uni;
-
 public class SAXExample {
 	public static boolean isFound;
-	//public static ArrayList<Lecturer> lecturers = new ArrayList<Lecturer>();
 	public static Uni uni = new Uni("BSU");
-	
+
 	public SAXExample(String FileName) throws ParserConfigurationException, SAXException, IOException {
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		SAXParser parser = factory.newSAXParser();
 
 		XMLHandler handler = new XMLHandler("faculties");
-		parser.parse(new File(FileName), handler);//"src/controller/Data.xml"
-		/*for (Lecturer lecturer : lecturers) {
-			System.out.println(lecturer.getFaculty());
-			System.out.println(lecturer.getDepartment());
-			System.out.println(lecturer.getDegreeName());
-			System.out.println(lecturer.getName().getName() + " " + lecturer.getName().getSecondName() + " "
-					+ lecturer.getName().getSurname());
-			System.out.println(lecturer.getYear());
+		if(handler != null) {
+			parser.parse(new File(FileName), handler);
 		}
-		if (!isFound)
-			System.out.println("Ёлемент не был найден.");*/
+		else {/*
+			try {
+				DOMExample dom = new DOMExample(uni, FileName);
+			} catch (TransformerException e) {
+				e.printStackTrace();
+			}*/
+		}
 
-		
-	}	
-	
+	}
 
 	private static class XMLHandler extends DefaultHandler {
 
 		private String element;
 		boolean isEntered;
 
-		
-		
 		Faculty currfac;
 		Department currdep;
 		String name;
@@ -73,7 +62,7 @@ public class SAXExample {
 				for (int i = 0; i < length; i++) {
 					if (qName.equals("faculty")) {
 						faculty = attributes.getValue(i);
-						currfac  = new Faculty(faculty);
+						currfac = new Faculty(faculty);
 						uni.addFaculty(currfac);
 					}
 					if (qName.equals("department")) {
@@ -102,11 +91,10 @@ public class SAXExample {
 			if (qName.equals(element))
 				isEntered = false;
 			if (qName.equals("employee")) {
-				Lecturer lecturer  = new Lecturer(name, surname, secondName, degreeName, degree, year);
+				Lecturer lecturer = new Lecturer(name, surname, secondName, degreeName, degree, year);
 				currdep.addLecturer(lecturer);
 			}
 		}
-		
-		
+
 	}
 }
