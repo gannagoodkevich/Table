@@ -37,6 +37,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import controller.DOMExample;
+import controller.DeleteController;
 import controller.SAXExample;
 import model.Department;
 import model.Faculty;
@@ -51,6 +52,7 @@ public class WindowUserCom {
 	public TableWithPages currentTableWithLecturers;
 	public List<JMenuItem> itemsSearch;
 	public List<JMenuItem> itemsDelete;
+	DeleteController deletecontr;
 	
 	public WindowUserCom() throws ParserConfigurationException, SAXException, IOException, TransformerException {
 		mainFrame = new JFrame();
@@ -165,18 +167,30 @@ public class WindowUserCom {
 			public void actionPerformed(ActionEvent e) {
 				String fileSeparator = System.getProperty("file.separator");
 				JTextField nameOfFile = new JTextField(10);
-				
+
 
 				JPanel myPanel = new JPanel();
 				myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
-				
-				myPanel.add(new JLabel("Enter name of file:"));
+
+				myPanel.add(new JLabel("Стаж работы с:"));
 				myPanel.add(nameOfFile);
-				JOptionPane.showConfirmDialog(null, myPanel, "Введите данные",
+				JPanel pan = new JPanel();
+				int result = JOptionPane.showConfirmDialog(null, myPanel, "Введите данные для поиска и удаления",
 						JOptionPane.OK_CANCEL_OPTION);
 				String relativePath = System.getProperty("user.dir") + fileSeparator  + nameOfFile.getText()+".xml";
 				File newFile = new File(relativePath);
+				DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder documentBuilder;
+				try {
+					documentBuilder = documentBuilderFactory.newDocumentBuilder();
+					Document document = documentBuilder.newDocument();
+				} catch (ParserConfigurationException e3) {
+					// TODO Auto-generated catch block
+					e3.printStackTrace();
+				}
+
 				FileName =  nameOfFile.getText() + ".xml";
+
 				try {
 					BufferedWriter bw = new BufferedWriter(new FileWriter(newFile,true));
 				bw.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
@@ -185,7 +199,7 @@ public class WindowUserCom {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
 				}
-				
+
 				JTextField nameField = new JTextField(20);
 				JTextField surnameField = new JTextField(10);
 				JTextField secondNameField = new JTextField(10);
@@ -194,45 +208,45 @@ public class WindowUserCom {
 				JTextField department = new JTextField(10);
 				JTextField degreeTitle = new JTextField(10);
 				JTextField degreeScience = new JTextField(10);
-				JPanel panelForAdding = new JPanel();
-				panelForAdding.setLayout(new BoxLayout(panelForAdding, BoxLayout.Y_AXIS));
-				panelForAdding.add(new JLabel("Фамилия:"));
-				panelForAdding.add(nameField);
-				panelForAdding.add(new JLabel("Имя"));
-				panelForAdding.add(surnameField);
-				panelForAdding.add(new JLabel("Отчество:"));
-				panelForAdding.add(secondNameField);
-				panelForAdding.add(new JLabel("Факультет:"));
-				panelForAdding.add(faculty);
-				panelForAdding.add(new JLabel("Кафедра:"));
-				panelForAdding.add(department);
-				panelForAdding.add(new JLabel("Ученое звание:"));
-				panelForAdding.add(degreeScience);
-				panelForAdding.add(new JLabel("Ученая степень:"));
-				panelForAdding.add(degreeTitle);
-				panelForAdding.add(new JLabel("Стаж работы:"));
-				panelForAdding.add(yearField);
+				JPanel myPanel1 = new JPanel();
+				myPanel1.setLayout(new BoxLayout(myPanel1, BoxLayout.Y_AXIS));
+				myPanel1.add(new JLabel("Фамилия:"));
+				myPanel1.add(nameField);
+				myPanel1.add(new JLabel("Имя"));
+				myPanel1.add(surnameField);
+				myPanel1.add(new JLabel("Отчество:"));
+				myPanel1.add(secondNameField);
+				myPanel1.add(new JLabel("Факультет:"));
+				myPanel1.add(faculty);
+				myPanel1.add(new JLabel("Кафедра:"));
+				myPanel1.add(department);
+				myPanel1.add(new JLabel("Ученое звание:"));
+				myPanel1.add(degreeScience);
+				myPanel1.add(new JLabel("Ученая степень:"));
+				myPanel1.add(degreeTitle);
+				myPanel1.add(new JLabel("Стаж работы:"));
+				myPanel1.add(yearField);
 
-				int optionResult = JOptionPane.showConfirmDialog(null, panelForAdding, "Введите информацию о новом преподавателе",
+				int result1 = JOptionPane.showConfirmDialog(null, myPanel1, "Введите информацию о новом преподавателе",
 						JOptionPane.OK_CANCEL_OPTION);
-				if (optionResult == JOptionPane.OK_OPTION) {
+				if (result1 == JOptionPane.OK_OPTION) {
+
 						currentUniversity = new Uni("New Uni");
-						Faculty currentFaculty = new Faculty(faculty.getText());
-						Department currentDepartment  = new Department(department.getText());
-						Lecturer currentLecturer = new Lecturer(nameField.getText(), surnameField.getText(),
+						Faculty fac = new Faculty(faculty.getText());
+						Department dep  = new Department(department.getText());
+						Lecturer lect = new Lecturer(nameField.getText(), surnameField.getText(),
 								secondNameField.getText(), (String) degreeScience.getText(),
 								(String) degreeTitle.getText(), yearField.getText());
-						currentUniversity.addFaculty(currentFaculty);
-						currentFaculty.addDepartment(currentDepartment);
-						currentDepartment.addLecturer(currentLecturer);
-						//System.out.println(currentUniversity.getFaculty(0).getTitle());
+						currentUniversity.addFaculty(fac);
+						fac.addDepartment(dep);
+						dep.addLecturer(lect);
+						System.out.println(currentUniversity.getFaculty(0).getTitle());
 						try {
 							DOMExample dom = new DOMExample(currentUniversity, FileName);
-							//currentTableWithLecturers.updateTable(currentUniversity);
 						} catch (ParserConfigurationException | TransformerException e1) {
 							e1.printStackTrace();
 						}
-					
+
 				}
 				paintGUI();
 

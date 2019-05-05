@@ -17,7 +17,6 @@ public class Run {
 			throws IOException, ParserConfigurationException, SAXException, TransformerException {
 		WindowUserCom main = new WindowUserCom();
 		main.run(main, AREA_WIDTH, AREA_HIGHT);
-	}
-
+	}	
 	
 }

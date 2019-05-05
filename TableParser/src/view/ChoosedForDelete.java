@@ -23,6 +23,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
 import controller.DOMExample;
+import controller.DeleteController;
 import model.Lecturer;
 import model.Uni;
 
@@ -42,8 +43,6 @@ public class ChoosedForDelete {
 			public void actionPerformed(ActionEvent e) {
 				JPanel myPanel = new JPanel();
 				myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
-
-				
 				if (index == 0) {
 					listenerSearchByFaculty(uni);				
 				}
@@ -53,7 +52,9 @@ public class ChoosedForDelete {
 				if (index == 2) {
 					listenerSearchByYear(uni);
 				}
+				
 			}
+			
 		};
 		menu.addActionListener(actionListener);
 		
@@ -78,6 +79,7 @@ public class ChoosedForDelete {
 				if (result == 2) {
 					listenerSearchByYear(currentWindow.currentUniversity);
 				}
+			
 			}
 		};
 		button.addActionListener(actionListener);
@@ -119,34 +121,11 @@ public class ChoosedForDelete {
 
 		myPanel.add(new JLabel("Ученое звание:"));
 		myPanel.add(comboBoxDn);
-		int numberOfDelete = 0;
 		int result = JOptionPane.showConfirmDialog(null, myPanel, "Выберите способ поиска",
 				JOptionPane.OK_CANCEL_OPTION);
 		if (result == JOptionPane.OK_OPTION) {
-			List<String[]> rowList = new ArrayList<String[]>();
-
-			for (int indexOfCurrentDepartment = 0; indexOfCurrentDepartment < uni
-					.getFacultyByName((String) comboBoxF.getSelectedItem()).getLenght(); indexOfCurrentDepartment++) {
-				if (uni.getFacultyByName((String) comboBoxF.getSelectedItem()).getDepartment(indexOfCurrentDepartment)
-						.getLectureByDegreeName((String) comboBoxDn.getSelectedItem()) != null) {
-					for (Lecturer lecturer : uni.getFacultyByName((String) comboBoxF.getSelectedItem())
-							.getDepartment(indexOfCurrentDepartment)
-							.getLectureByDegreeName((String) comboBoxDn.getSelectedItem())) {
-						rowList.add(new String[] {
-								uni.getFacultyByName((String) comboBoxF.getSelectedItem()).getTitle(),
-								uni.getFacultyByName((String) comboBoxF.getSelectedItem())
-										.getDepartment(indexOfCurrentDepartment).getTitle(),
-								lecturer.getName() + " " + lecturer.getSurname() + " " + lecturer.getSecondName(),
-								lecturer.getDegreeName(), lecturer.getDegree(), lecturer.getYear() });
-						uni.getFacultyByName((String) comboBoxF.getSelectedItem())
-								.getDepartment(indexOfCurrentDepartment).deleteLecture(lecturer);
-						numberOfDelete++;
-
-					}
-				}
-
-			}
-			String[][] data = rowList.toArray(new String[0][]);
+			DeleteController deletecontr = new DeleteController();
+			int numberOfDelete = deletecontr.listenerSearchByFaculty(uni, (String) comboBoxF.getSelectedItem(), (String) comboBoxDn.getSelectedItem());
 			JPanel pan = new JPanel();
 			pan.add(new JLabel(" " + numberOfDelete));
 			UIManager.put("OptionPane.minimumSize", new Dimension(1800, 500));
@@ -197,31 +176,9 @@ public class ChoosedForDelete {
 		int result = JOptionPane.showConfirmDialog(null, myPanel, "Введите данные для поиска",
 				JOptionPane.OK_CANCEL_OPTION);
 		if (result == JOptionPane.OK_OPTION) {
-			int numberOfDelete = 0;
-			List<String[]> rowList = new ArrayList<String[]>();
-			for (int indexOfCurrentFaculty = 0; indexOfCurrentFaculty < uni.getLenght(); indexOfCurrentFaculty++) {
-				if (uni.getFaculty(indexOfCurrentFaculty)
-						.getDepartmentByName((String) comboBoxD.getSelectedItem()) != null) {
-					if (uni.getFaculty(indexOfCurrentFaculty).getDepartmentByName((String) comboBoxD.getSelectedItem())
-							.getLectureByName(nameField.getText()) != null) {
-						for (Lecturer lecturer : uni.getFaculty(indexOfCurrentFaculty)
-								.getDepartmentByName((String) comboBoxD.getSelectedItem())
-								.getLectureByName(nameField.getText())) {
-							rowList.add(new String[] { uni.getFaculty(indexOfCurrentFaculty).getTitle(),
-									uni.getFaculty(indexOfCurrentFaculty)
-											.getDepartmentByName((String) comboBoxD.getSelectedItem()).getTitle(),
-									lecturer.getName() + " " + lecturer.getSurname() + " " + lecturer.getSecondName(),
-									lecturer.getDegreeName(), lecturer.getDegree(), lecturer.getYear() });
-							uni.getFaculty(indexOfCurrentFaculty)
-									.getDepartmentByName((String) comboBoxD.getSelectedItem()).deleteLecture(lecturer);
-							numberOfDelete++;
-						}
-					}
-				}
-			}
-			String[][] data = rowList.toArray(new String[0][]);
+			DeleteController deletecontr = new DeleteController();
+			int numberOfDelete = deletecontr.listenerSearchByName(uni, (String) comboBoxD.getSelectedItem(), nameField.getText());
 			JPanel pan = new JPanel();
-
 			pan.add(new JLabel(" " + numberOfDelete));
 			UIManager.put("OptionPane.minimumSize", new Dimension(1800, 500));
 			JOptionPane.showMessageDialog(null, pan, "Table", JOptionPane.OK_CANCEL_OPTION);
@@ -250,35 +207,13 @@ public class ChoosedForDelete {
 		myPanel.add(yearFieldTo);
 		int result = JOptionPane.showConfirmDialog(null, myPanel, "Введите данные для поиска",
 				JOptionPane.OK_CANCEL_OPTION);
-		int numberOfDelete = 0;
 		String year1 = yearFieldFrom.getText();
 		String year2 = yearFieldTo.getText();
-		List<String[]> rowList = new ArrayList<String[]>();
-		if (result == JOptionPane.OK_OPTION) {
-			for (int indexOfCurrentFaculty = 0; indexOfCurrentFaculty < uni.getLenght(); indexOfCurrentFaculty++) {
-				for (int indexOfCurrentDepartment = 0; indexOfCurrentDepartment < uni.getFaculty(indexOfCurrentFaculty)
-						.getLenght(); indexOfCurrentDepartment++) {
-					if (uni.getFaculty(indexOfCurrentFaculty).getDepartment(indexOfCurrentDepartment)
-							.getLectureByYear(year1, year2) != null) {
-						for (Lecturer lecturer : uni.getFaculty(indexOfCurrentFaculty)
-								.getDepartment(indexOfCurrentDepartment).getLectureByYear(year1, year2)) {
-							rowList.add(new String[] { uni.getFaculty(indexOfCurrentFaculty).getTitle(),
-									uni.getFaculty(indexOfCurrentFaculty).getDepartment(indexOfCurrentDepartment)
-											.getTitle(),
-									lecturer.getName() + " " + lecturer.getSurname() + " " + lecturer.getSecondName(),
-									lecturer.getDegreeName(), lecturer.getDegree(), lecturer.getYear() });
-							uni.getFaculty(indexOfCurrentFaculty).getDepartment(indexOfCurrentDepartment)
-									.deleteLecture(lecturer);
-							numberOfDelete++;
-						}
-					}
-				}
-			}
-		}
+		DeleteController deletecontr = new DeleteController();
+		int numberOfDelete = deletecontr.listenerSearchByYear(uni, year1, year2);
 		JPanel pan = new JPanel();
 		pan.add(new JLabel(" " + numberOfDelete));
 		UIManager.put("OptionPane.minimumSize", new Dimension(1800, 500));
-
 		JOptionPane.showMessageDialog(null, pan, "Table", JOptionPane.OK_CANCEL_OPTION);
 		try {
 			DOMExample dom = new DOMExample(uni, currentWindow.FileName);

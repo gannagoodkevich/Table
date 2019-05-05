@@ -19,6 +19,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
+
+import controller.DeleteController;
+import controller.SearchController;
 import model.Lecturer;
 import model.Uni;
 
@@ -102,7 +105,6 @@ public class ChooserForSearch {
 			}
 		}
 		String[] degreeTs = degreeT.toArray(new String[0]);
-
 		JComboBox<String> comboBoxF = new JComboBox<String>(faculties);
 		JComboBox<String> comboBoxDn = new JComboBox<String>(degreeTs);
 
@@ -118,26 +120,8 @@ public class ChooserForSearch {
 		int result = JOptionPane.showConfirmDialog(null, myPanel, "¬ведите данные дл€ поиска и удалени€",
 				JOptionPane.OK_CANCEL_OPTION);
 		if (result == JOptionPane.OK_OPTION) {
-			List<String[]> rowList = new ArrayList<String[]>();
-
-			for (int indexOfCurrentDepartment = 0; indexOfCurrentDepartment < uni
-					.getFacultyByName((String) comboBoxF.getSelectedItem()).getLenght(); indexOfCurrentDepartment++) {
-				if (uni.getFacultyByName((String) comboBoxF.getSelectedItem()).getDepartment(indexOfCurrentDepartment)
-						.getLectureByDegreeName((String) comboBoxDn.getSelectedItem()) != null) {
-					for (Lecturer lecturer : uni.getFacultyByName((String) comboBoxF.getSelectedItem())
-							.getDepartment(indexOfCurrentDepartment)
-							.getLectureByDegreeName((String) comboBoxDn.getSelectedItem())) {
-						rowList.add(new String[] {
-								uni.getFacultyByName((String) comboBoxF.getSelectedItem()).getTitle(),
-								uni.getFacultyByName((String) comboBoxF.getSelectedItem())
-										.getDepartment(indexOfCurrentDepartment).getTitle(),
-								lecturer.getName() + " " + lecturer.getSurname() + " " + lecturer.getSecondName(),
-								lecturer.getDegreeName(), lecturer.getDegree(), lecturer.getYear() });
-
-					}
-				}
-
-			}
+			SearchController searchcontr = new SearchController();
+			List<String[]> rowList = searchcontr.listenerSearchByFaculty(uni, (String) comboBoxF.getSelectedItem(), (String) comboBoxDn.getSelectedItem());
 			// String[][] data = rowList.toArray(new String[0][]);
 			JPanel pan = new JPanel();
 
@@ -147,7 +131,7 @@ public class ChooserForSearch {
 			 * table1.setRowHeight(50);
 			 */
 			//pan.setLayout(null);
-			TableWithPages currTable = new TableWithPages(uni, rowList, pan);
+			TableWithPages currTable = new TableWithPages(t, uni, rowList, pan);
 			//pan.add(currTable.scroll);
 
 			UIManager.put("OptionPane.minimumSize", new Dimension(1800, 500));
@@ -192,26 +176,9 @@ public class ChooserForSearch {
 		int result = JOptionPane.showConfirmDialog(null, myPanel, "¬ведите данные дл€ поиска",
 				JOptionPane.OK_CANCEL_OPTION);
 		if (result == JOptionPane.OK_OPTION) {
-			List<String[]> rowList = new ArrayList<String[]>();
-			for (int indexOfCurrentFaculty = 0; indexOfCurrentFaculty < uni.getLenght(); indexOfCurrentFaculty++) {
-				if (uni.getFaculty(indexOfCurrentFaculty)
-						.getDepartmentByName((String) comboBoxD.getSelectedItem()) != null) {
-					if (uni.getFaculty(indexOfCurrentFaculty).getDepartmentByName((String) comboBoxD.getSelectedItem())
-							.getLectureByName(nameField.getText()) != null) {
-						for (Lecturer lecturer : uni.getFaculty(indexOfCurrentFaculty)
-								.getDepartmentByName((String) comboBoxD.getSelectedItem())
-								.getLectureByName(nameField.getText())) {
-							rowList.add(new String[] { uni.getFaculty(indexOfCurrentFaculty).getTitle(),
-									uni.getFaculty(indexOfCurrentFaculty)
-											.getDepartmentByName((String) comboBoxD.getSelectedItem()).getTitle(),
-									lecturer.getName() + " " + lecturer.getSurname() + " " + lecturer.getSecondName(),
-									lecturer.getDegreeName(), lecturer.getDegree(), lecturer.getYear() });
-							uni.getFaculty(indexOfCurrentFaculty)
-									.getDepartmentByName((String) comboBoxD.getSelectedItem()).deleteLecture(lecturer);
-						}
-					}
-				}
-			}
+			SearchController searchcontr = new SearchController();
+			List<String[]> rowList = searchcontr.listenerSearchByName(uni, (String) comboBoxD.getSelectedItem(), nameField.getText());
+			
 			// String[][] data = rowList.toArray(new String[0][]);
 			JPanel pan = new JPanel();
 
@@ -220,8 +187,7 @@ public class ChooserForSearch {
 			 * table1.setPreferredScrollableViewportSize(new Dimension(1800, 500));
 			 * table1.setRowHeight(50); pan.add(scroll);
 			 */
-			TableWithPages currTable = new TableWithPages(uni, rowList, pan);
-			pan.add(currTable.scroll);
+			TableWithPages currTable = new TableWithPages(t, uni, rowList, pan);
 			UIManager.put("OptionPane.minimumSize", new Dimension(1800, 500));
 			JOptionPane.showMessageDialog(null, pan, "Table", JOptionPane.OK_CANCEL_OPTION);
 
@@ -247,24 +213,9 @@ public class ChooserForSearch {
 		String uare1 = yearFieldFrom.getText();
 		String uare2 = yearFieldTo.getText();
 		if (result == JOptionPane.OK_OPTION) {
-			List<String[]> rowList = new ArrayList<String[]>();
-			for (int indexOfCurrentFaculty = 0; indexOfCurrentFaculty < uni.getLenght(); indexOfCurrentFaculty++) {
-				for (int indexOfCurrentDepartment = 0; indexOfCurrentDepartment < uni.getFaculty(indexOfCurrentFaculty)
-						.getLenght(); indexOfCurrentDepartment++) {
-					if (uni.getFaculty(indexOfCurrentFaculty).getDepartment(indexOfCurrentDepartment)
-							.getLectureByYear(uare1, uare2) != null) {
-						for (Lecturer lecturer : uni.getFaculty(indexOfCurrentFaculty)
-								.getDepartment(indexOfCurrentDepartment).getLectureByYear(uare1, uare2)) {
-							rowList.add(new String[] { uni.getFaculty(indexOfCurrentFaculty).getTitle(),
-									uni.getFaculty(indexOfCurrentFaculty).getDepartment(indexOfCurrentDepartment)
-											.getTitle(),
-									lecturer.getName() + " " + lecturer.getSurname() + " " + lecturer.getSecondName(),
-									lecturer.getDegreeName(), lecturer.getDegree(), lecturer.getYear() });
-						}
-					}
-				}
-			}
-			TableWithPages currTable = new TableWithPages(uni, rowList, pan);
+			SearchController searchcontr = new SearchController();
+			List<String[]> rowList = searchcontr.listenerSearchByYear(uni, uare1, uare2);
+			TableWithPages currTable = new TableWithPages(t, uni, rowList, pan);
 			pan.add(currTable.scroll);
 			UIManager.put("OptionPane.minimumSize", new Dimension(1800, 500));
 
