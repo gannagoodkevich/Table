@@ -1,4 +1,4 @@
-package model;
+package controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,32 +6,29 @@ import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import javax.xml.transform.TransformerException;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import model.Department;
+import model.Faculty;
+import model.Lecturer;
+import model.Uni;
+
 public class SAXExample {
 	public static boolean isFound;
-	public Uni uni = new Uni("BSU");
+	public Uni uni;
 
 	public SAXExample(String FileName) throws ParserConfigurationException, SAXException, IOException {
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		SAXParser parser = factory.newSAXParser();
-
+		System.out.println(FileName);
+		uni = new Uni("New Uni");
 		XMLHandler handler = new XMLHandler("faculties", uni);
 		if(handler != null) {
 			parser.parse(new File(FileName), handler);
 		}
-		else {/*
-			try {
-				DOMExample dom = new DOMExample(uni, FileName);
-			} catch (TransformerException e) {
-				e.printStackTrace();
-			}*/
-		}
-
 	}
 
 	private static class XMLHandler extends DefaultHandler {
@@ -39,8 +36,8 @@ public class SAXExample {
 		private String element;
 		boolean isEntered;
 
-		Faculty currfac;
-		Department currdep;
+		Faculty currFaculty;
+		Department currDepartment;
 		String name;
 		String surname;
 		String secondName;
@@ -66,13 +63,13 @@ public class SAXExample {
 				for (int i = 0; i < length; i++) {
 					if (qName.equals("faculty")) {
 						faculty = attributes.getValue(i);
-						currfac = new Faculty(faculty);
-						uni.addFaculty(currfac);
+						currFaculty = new Faculty(faculty);
+						uni.addFaculty(currFaculty);
 					}
 					if (qName.equals("department")) {
 						department = attributes.getValue(i);
-						currdep = new Department(department);
-						currfac.addDepartment(currdep);
+						currDepartment = new Department(department);
+						currFaculty.addDepartment(currDepartment);
 					} else if (qName.equalsIgnoreCase("employee")) {
 						name = attributes.getValue("name");
 						surname = attributes.getValue("surname");
@@ -96,7 +93,7 @@ public class SAXExample {
 				isEntered = false;
 			if (qName.equals("employee")) {
 				Lecturer lecturer = new Lecturer(name, surname, secondName, degreeName, degree, year);
-				currdep.addLecturer(lecturer);
+				currDepartment.addLecturer(lecturer);
 			}
 		}
 

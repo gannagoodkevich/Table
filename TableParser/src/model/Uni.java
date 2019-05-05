@@ -20,13 +20,13 @@ public class Uni {
 	}
 
 	public Faculty getFacultyByName(String name) {
-		Faculty fac = null;
+		Faculty facultyFound = null;
 		for (Faculty faculty : faculties) {
 			if (name.equals(faculty.getTitle())) {
-				fac = new Faculty(faculty);
+				facultyFound = new Faculty(faculty);
 			}
 		}
-		return fac;
+		return facultyFound;
 	}
 
 	public void addFaculty(Faculty faculty) {

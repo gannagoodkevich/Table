@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<university>
+	<name>New Uni</name>
+	<faculties>
+		<faculty titleF="ФИТИУ">
+			<departments>
+				<department titleK="ИИ">
+					<employee degree="- " degreeT="-" name="Жуков"
+						secondName="Иванович" surname="Иван" year="5" />
+				</department>
+			</departments>
+		</faculty>
+	</faculties>
+</university>

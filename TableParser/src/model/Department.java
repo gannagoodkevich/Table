@@ -26,50 +26,50 @@ public class Department {
 
 	public Lecturer getLectureByInfo(String name, String surname, String secondName, String degree, String degreeT,
 			String year) {
-		Lecturer lec = null;
+		Lecturer lecturerFind = null;
 		for (Lecturer lecturer : lecturers) {
 			if (name.equals(lecturer.getName()) && surname.equals(lecturer.getSurname())
 					&& secondName.equals(lecturer.getSecondName()) && degree.equals(lecturer.getDegree())
 					&& degreeT.equals(lecturer.getDegreeName()) && year.equals(lecturer.getYear())) {
-				lec = new Lecturer(lecturer);
+				lecturerFind = new Lecturer(lecturer);
 			}
 		}
-		return lec;
+		return lecturerFind;
 	}
 
 	public List<Lecturer> getLectureByName(String name) {
-		List<Lecturer> lec = new ArrayList<Lecturer>();
+		List<Lecturer> lecturerFind = new ArrayList<Lecturer>();
 		for (Lecturer lecturer : lecturers) {
 			if (name.equals(lecturer.getName())) {
-				lec.add(lecturer);
+				lecturerFind.add(lecturer);
 			}
 		}
-		return lec;
+		return lecturerFind;
 	}
 
 	public List<Lecturer> getLectureByYear(String year1, String year2) {
-		List<Lecturer> lec = new ArrayList<Lecturer>();
-		int y1 = Integer.parseInt(year1);
-		int y2 = Integer.parseInt(year2);
+		List<Lecturer> lecturerFind = new ArrayList<Lecturer>();
+		int year1Find = Integer.parseInt(year1);
+		int year2Find = Integer.parseInt(year2);
 		System.out.println(year1);
 		System.out.println(year2);
 		for (Lecturer lecturer : lecturers) {
-			if (Integer.parseInt(lecturer.getYear()) >= y1 && Integer.parseInt(lecturer.getYear()) <= y2) {
-				lec.add(lecturer);
+			if (Integer.parseInt(lecturer.getYear()) >= year1Find && Integer.parseInt(lecturer.getYear()) <= year2Find) {
+				lecturerFind.add(lecturer);
 				
 			}
 		}
-		return lec;
+		return lecturerFind;
 	}
 
 	public List<Lecturer> getLectureByDegreeName(String name) {
-		List<Lecturer> lec = new ArrayList<Lecturer>();
+		List<Lecturer> lecturerFind = new ArrayList<Lecturer>();
 		for (Lecturer lecturer : lecturers) {
 			if (name.equals(lecturer.getDegreeName())) {
-				lec.add(lecturer);
+				lecturerFind.add(lecturer);
 			}
 		}
-		return lec;
+		return lecturerFind;
 	}
 
 	public void addLecturer(Lecturer lecturer) {

@@ -2,8 +2,6 @@ package controller;
 
 import java.io.IOException;
 
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
