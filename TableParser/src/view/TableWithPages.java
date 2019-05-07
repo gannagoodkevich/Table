@@ -67,8 +67,8 @@ public class TableWithPages {
 		this.currenrPanel = currenrPanel;
 
 		rowList = new ArrayList<String[]>();
-		leftButton = new JButton(new ImageIcon(PENCIL_PATH));
-		rightButton = new JButton(new ImageIcon(PENCIL_PATH));
+		leftButton = new JButton("Go to privious");
+		rightButton = new JButton("Go to next");
 		firstButton = new JButton("Go to head");
 		lastButton = new JButton("Go to tail");
 		changeRowsButton = new JButton("Change rows");
@@ -110,18 +110,20 @@ public class TableWithPages {
 		pane.add(changeRowsButton);
 		pane.add(Box.createRigidArea(new Dimension(10, 0)));
 		// changeRowsButton.setBounds(1200, 100, 150, 70);
-		if(rowList.size() >= numOfRows)
-		{lableNumberOfElements = new JLabel("Number of elementson page: " + numOfRows + " from total " + rowList.size());
-		}
-		else{lableNumberOfElements = new JLabel("Number of elementson page: " + rowList.size() + " from total " + rowList.size());
+		if (rowList.size() >= numOfRows) {
+			lableNumberOfElements = new JLabel(
+					"Number of elementson page: " + numOfRows + " from total " + rowList.size());
+		} else {
+			lableNumberOfElements = new JLabel(
+					"Number of elementson page: " + rowList.size() + " from total " + rowList.size());
 		}
 		pane.add(lableNumberOfElements);
 		// lableNumberOfElements.setBounds(750, 100, 200, 70);
-		if(rowList.size()%numOfRows!=0) {
-		lableNumberOnPage = new JLabel(" Number of page: " + currPage + " from " + (rowList.size()/numOfRows+1));
-		}
-		else {
-			lableNumberOnPage = new JLabel(" Number of page: " + currPage + "from " + (rowList.size()/numOfRows));	
+		if (rowList.size() % numOfRows != 0) {
+			lableNumberOnPage = new JLabel(
+					" Number of page: " + currPage + " from " + (rowList.size() / numOfRows + 1));
+		} else {
+			lableNumberOnPage = new JLabel(" Number of page: " + currPage + "from " + (rowList.size() / numOfRows));
 		}
 		pane.add(lableNumberOnPage);
 		// System.out.println(data[1][1]+ "problem");
@@ -141,8 +143,8 @@ public class TableWithPages {
 		this.currenrPanel = currenrPanel;
 		System.out.println(rowList.size());
 		currenrPanel.setLayout(new BoxLayout(currenrPanel, BoxLayout.X_AXIS));
-		leftButton = new JButton(new ImageIcon(PENCIL_PATH));
-		rightButton = new JButton(new ImageIcon(PENCIL_PATH));
+		leftButton = new JButton("Go to privious");
+		rightButton = new JButton("Go to next");
 		firstButton = new JButton("Go to head");
 		lastButton = new JButton("Go to tail");
 		changeRowsButton = new JButton("Change rows");
@@ -172,18 +174,20 @@ public class TableWithPages {
 		pane.add(Box.createRigidArea(new Dimension(10, 0)));
 		// lastButton.setBounds(1370, 100, 100, 70);
 		pane.add(changeRowsButton);
-		if(rowList.size() >= numOfRows)
-		{lableNumberOfElements = new JLabel("Number of elementson page: " + numOfRows + " from total " + rowList.size());
-		}
-		else{lableNumberOfElements = new JLabel("Number of elementson page: " + rowList.size() + " from total " + rowList.size());
+		if (rowList.size() >= numOfRows) {
+			lableNumberOfElements = new JLabel(
+					"Number of elementson page: " + numOfRows + " from total " + rowList.size());
+		} else {
+			lableNumberOfElements = new JLabel(
+					"Number of elementson page: " + rowList.size() + " from total " + rowList.size());
 		}
 		pane.add(lableNumberOfElements);
 		// lableNumberOfElements.setBounds(750, 100, 200, 70);
-		if(rowList.size()%numOfRows!=0) {
-		lableNumberOnPage = new JLabel(" Number of page: " + currPage + " from " + (rowList.size()/numOfRows+1));
-		}
-		else {
-			lableNumberOnPage = new JLabel(" Number of page: " + currPage + " from " + (rowList.size()/numOfRows));	
+		if (rowList.size() % numOfRows != 0) {
+			lableNumberOnPage = new JLabel(
+					" Number of page: " + currPage + " from " + (rowList.size() / numOfRows + 1));
+		} else {
+			lableNumberOnPage = new JLabel(" Number of page: " + currPage + " from " + (rowList.size() / numOfRows));
 		}
 		pane.add(lableNumberOnPage);
 
@@ -204,7 +208,7 @@ public class TableWithPages {
 					(String) data[i][3], (String) data[i][4], (String) data[i][5] });
 		}
 		String[][] dataCurr1 = dataCurr.toArray(new String[0][]);
-		
+
 		table = new JTable(dataCurr1, headers);
 		table.repaint();
 		table.setRowHeight(50);
@@ -222,29 +226,36 @@ public class TableWithPages {
 				if (rowList.size() <= numOfRows) {
 					numOfRowsEnd = rowList.size();
 					numOfRowsStart = 0;
-					lableNumberOfElements.setText("Number of elementson page: " + rowList.size() + " from total " + rowList.size());
-					lableNumberOnPage.setText(" Number of page: " + 1 + " from " + (rowList.size()/numOfRows+1));
+					lableNumberOfElements
+							.setText("Number of elementson page: " + rowList.size() + " from total " + rowList.size());
+					lableNumberOnPage.setText(" Number of page: " + 1 + " from " + (rowList.size() / numOfRows + 1));
 				} else {
 					if (numOfRowsEnd != rowList.size()) {
 						if (numOfRowsEnd <= rowList.size() - numOfRows) {
 							numOfRowsEnd += numOfRows;
 							numOfRowsStart += numOfRows;
-							currPage+=1;
-							lableNumberOnPage.setText(" Number of page: " + (currPage) + " from " + (rowList.size()/numOfRows+1));
-							lableNumberOfElements.setText("Number of elementson page: " + numOfRows + " from total " + rowList.size());
+							currPage += 1;
+							lableNumberOnPage.setText(
+									" Number of page: " + (currPage) + " from " + (rowList.size() / numOfRows + 1));
+							lableNumberOfElements.setText(
+									"Number of elementson page: " + numOfRows + " from total " + rowList.size());
 						} else {
 							numOfRowsStart = numOfRowsEnd;
 							numOfRowsEnd = rowList.size();
-							currPage+=1;
-							lableNumberOnPage.setText(" Number of page: " + (rowList.size()/numOfRows+1) + " from " + (rowList.size()/numOfRows+1));
-							lableNumberOfElements.setText("Number of elementson page: " + rowList.size()%numOfRows + " from total " + rowList.size());
+							currPage += 1;
+							lableNumberOnPage.setText(" Number of page: " + (rowList.size() / numOfRows + 1) + " from "
+									+ (rowList.size() / numOfRows + 1));
+							lableNumberOfElements.setText("Number of elementson page: " + rowList.size() % numOfRows
+									+ " from total " + rowList.size());
 						}
 					} else {
 						numOfRowsEnd = numOfRows;
 						numOfRowsStart = 0;
-						currPage=1;
-						lableNumberOnPage.setText(" Number of page: " + currPage + " from " + (rowList.size()/numOfRows+1));
-						lableNumberOfElements.setText("Number of elementson page: " + numOfRows + " from total " + rowList.size());
+						currPage = 1;
+						lableNumberOnPage
+								.setText(" Number of page: " + currPage + " from " + (rowList.size() / numOfRows + 1));
+						lableNumberOfElements
+								.setText("Number of elementson page: " + numOfRows + " from total " + rowList.size());
 					}
 				}
 				// data = rowList.toArray(new String[0][]);
@@ -279,29 +290,36 @@ public class TableWithPages {
 				if (rowList.size() <= numOfRows) {
 					numOfRowsEnd = rowList.size();
 					numOfRowsStart = 0;
-					lableNumberOfElements.setText("Number of elementson page: " + rowList.size() + " from total " + rowList.size());
-					lableNumberOnPage.setText(" Number of page: " + 1 + " from " + (rowList.size()/numOfRows+1));
+					lableNumberOfElements
+							.setText("Number of elementson page: " + rowList.size() + " from total " + rowList.size());
+					lableNumberOnPage.setText(" Number of page: " + 1 + " from " + (rowList.size() / numOfRows + 1));
 				} else {
 					if (numOfRowsEnd != rowList.size()) {
 						if (numOfRowsEnd <= rowList.size() - numOfRows) {
 							numOfRowsEnd += numOfRows;
 							numOfRowsStart += numOfRows;
-							currPage+=1;
-							lableNumberOnPage.setText(" Number of page: " + (currPage) + " from " + (rowList.size()/numOfRows+1));
-							lableNumberOfElements.setText("Number of elementson page: " + numOfRows + " from total " + rowList.size());
+							currPage += 1;
+							lableNumberOnPage.setText(
+									" Number of page: " + (currPage) + " from " + (rowList.size() / numOfRows + 1));
+							lableNumberOfElements.setText(
+									"Number of elementson page: " + numOfRows + " from total " + rowList.size());
 						} else {
 							numOfRowsStart = numOfRowsEnd;
 							numOfRowsEnd = rowList.size();
-							currPage+=1;
-							lableNumberOnPage.setText(" Number of page: " + (rowList.size()/numOfRows+1) + " from " + (rowList.size()/numOfRows+1));
-							lableNumberOfElements.setText("Number of elementson page: " + rowList.size()%numOfRows + " from total " + rowList.size());
+							currPage += 1;
+							lableNumberOnPage.setText(" Number of page: " + (rowList.size() / numOfRows + 1) + " from "
+									+ (rowList.size() / numOfRows + 1));
+							lableNumberOfElements.setText("Number of elementson page: " + rowList.size() % numOfRows
+									+ " from total " + rowList.size());
 						}
 					} else {
 						numOfRowsEnd = numOfRows;
 						numOfRowsStart = 0;
-						currPage=1;
-						lableNumberOnPage.setText(" Number of page: " + currPage + " from " + (rowList.size()/numOfRows+1));
-						lableNumberOfElements.setText("Number of elementson page: " + numOfRows + " from total " + rowList.size());
+						currPage = 1;
+						lableNumberOnPage
+								.setText(" Number of page: " + currPage + " from " + (rowList.size() / numOfRows + 1));
+						lableNumberOfElements
+								.setText("Number of elementson page: " + numOfRows + " from total " + rowList.size());
 					}
 				}
 				// data = rowList.toArray(new String[0][]);
@@ -335,15 +353,18 @@ public class TableWithPages {
 				if (rowList.size() <= numOfRows) {
 					numOfRowsEnd = rowList.size();
 					numOfRowsStart = 0;
-					lableNumberOnPage.setText(" Number of page: " + 1 + " from " + (rowList.size()/numOfRows+1));
-					lableNumberOfElements.setText("Number of elementson page: " + rowList.size() + " from total " + rowList.size());
+					lableNumberOnPage.setText(" Number of page: " + 1 + " from " + (rowList.size() / numOfRows + 1));
+					lableNumberOfElements
+							.setText("Number of elementson page: " + rowList.size() + " from total " + rowList.size());
 				} else {
 					if (numOfRowsEnd == numOfRows) {
 						numOfRowsEnd = rowList.size();
 						numOfRowsStart = numOfRowsEnd - rowList.size() % numOfRows;
-						currPage = (rowList.size()/numOfRows+1);
-						lableNumberOnPage.setText(" Number of page: " + currPage + " from " + (rowList.size()/numOfRows+1));
-						lableNumberOfElements.setText("Number of elementson page: " + rowList.size() % numOfRows + " from total " + rowList.size());
+						currPage = (rowList.size() / numOfRows + 1);
+						lableNumberOnPage
+								.setText(" Number of page: " + currPage + " from " + (rowList.size() / numOfRows + 1));
+						lableNumberOfElements.setText("Number of elementson page: " + rowList.size() % numOfRows
+								+ " from total " + rowList.size());
 					} else {
 						if (numOfRowsEnd != rowList.size()) {
 							if (numOfRowsEnd >= 2 * numOfRows) {
@@ -353,15 +374,19 @@ public class TableWithPages {
 								numOfRowsStart = 0;
 								numOfRowsEnd = numOfRows;
 							}
-							currPage-=1;
-							lableNumberOnPage.setText(" Number of page: " + currPage + " from " + (rowList.size()/numOfRows+1));
-							lableNumberOfElements.setText("Number of elementson page: " +numOfRows + " from total " + rowList.size());
+							currPage -= 1;
+							lableNumberOnPage.setText(
+									" Number of page: " + currPage + " from " + (rowList.size() / numOfRows + 1));
+							lableNumberOfElements.setText(
+									"Number of elementson page: " + numOfRows + " from total " + rowList.size());
 						} else {
 							numOfRowsEnd = rowList.size() - rowList.size() % numOfRows;
 							numOfRowsStart = numOfRowsEnd - numOfRows;
-							currPage-=1;
-							lableNumberOnPage.setText(" Number of page: " + currPage + " from " + (rowList.size()/numOfRows+1));
-							lableNumberOfElements.setText("Number of elementson page: " + numOfRows + " from total " + rowList.size());
+							currPage -= 1;
+							lableNumberOnPage.setText(
+									" Number of page: " + currPage + " from " + (rowList.size() / numOfRows + 1));
+							lableNumberOfElements.setText(
+									"Number of elementson page: " + numOfRows + " from total " + rowList.size());
 						}
 					}
 				}
@@ -392,15 +417,18 @@ public class TableWithPages {
 				if (rowList.size() <= numOfRows) {
 					numOfRowsEnd = rowList.size();
 					numOfRowsStart = 0;
-					lableNumberOnPage.setText(" Number of page: " + 1 + " from " + (rowList.size()/numOfRows+1));
-					lableNumberOfElements.setText("Number of elementson page: " + rowList.size() + " from total " + rowList.size());
+					lableNumberOnPage.setText(" Number of page: " + 1 + " from " + (rowList.size() / numOfRows + 1));
+					lableNumberOfElements
+							.setText("Number of elementson page: " + rowList.size() + " from total " + rowList.size());
 				} else {
 					if (numOfRowsEnd == numOfRows) {
 						numOfRowsEnd = rowList.size();
 						numOfRowsStart = numOfRowsEnd - rowList.size() % numOfRows;
-						currPage = (rowList.size()/numOfRows+1);
-						lableNumberOnPage.setText(" Number of page: " + currPage + " from " + (rowList.size()/numOfRows+1));
-						lableNumberOfElements.setText("Number of elementson page: " + rowList.size() % numOfRows + " from total " + rowList.size());
+						currPage = (rowList.size() / numOfRows + 1);
+						lableNumberOnPage
+								.setText(" Number of page: " + currPage + " from " + (rowList.size() / numOfRows + 1));
+						lableNumberOfElements.setText("Number of elementson page: " + rowList.size() % numOfRows
+								+ " from total " + rowList.size());
 					} else {
 						if (numOfRowsEnd != rowList.size()) {
 							if (numOfRowsEnd >= 2 * numOfRows) {
@@ -410,15 +438,19 @@ public class TableWithPages {
 								numOfRowsStart = 0;
 								numOfRowsEnd = numOfRows;
 							}
-							currPage-=1;
-							lableNumberOnPage.setText(" Number of page: " + currPage + " from " + (rowList.size()/numOfRows+1));
-							lableNumberOfElements.setText("Number of elementson page: " +numOfRows + " from total " + rowList.size());
+							currPage -= 1;
+							lableNumberOnPage.setText(
+									" Number of page: " + currPage + " from " + (rowList.size() / numOfRows + 1));
+							lableNumberOfElements.setText(
+									"Number of elementson page: " + numOfRows + " from total " + rowList.size());
 						} else {
 							numOfRowsEnd = rowList.size() - rowList.size() % numOfRows;
 							numOfRowsStart = numOfRowsEnd - numOfRows;
-							currPage-=1;
-							lableNumberOnPage.setText(" Number of page: " + currPage + " from " + (rowList.size()/numOfRows+1));
-							lableNumberOfElements.setText("Number of elementson page: " + numOfRows + " from total " + rowList.size());
+							currPage -= 1;
+							lableNumberOnPage.setText(
+									" Number of page: " + currPage + " from " + (rowList.size() / numOfRows + 1));
+							lableNumberOfElements.setText(
+									"Number of elementson page: " + numOfRows + " from total " + rowList.size());
 						}
 					}
 				}
@@ -449,17 +481,20 @@ public class TableWithPages {
 
 				UniversityController uniContr = new UniversityController();
 				rowList = uniContr.getUniversity(university);
-				
+
 				data = rowList.toArray(new String[0][]);
-				if(rowList.size() > numOfRows) {
+				if (rowList.size() > numOfRows) {
 					currPage = 1;
-					lableNumberOnPage.setText(" Number of page: " + currPage + " from " + (rowList.size()/numOfRows+1));
-					lableNumberOfElements.setText("Number of elementson page: " + numOfRows + " from total " + rowList.size());
-				}
-				else {
+					lableNumberOnPage
+							.setText(" Number of page: " + currPage + " from " + (rowList.size() / numOfRows + 1));
+					lableNumberOfElements
+							.setText("Number of elementson page: " + numOfRows + " from total " + rowList.size());
+				} else {
 					currPage = 1;
-					lableNumberOnPage.setText(" Number of page: " + currPage + " from " + (rowList.size()/numOfRows+1));
-					lableNumberOfElements.setText("Number of elementson page: " + rowList.size() + " from total " + rowList.size());	
+					lableNumberOnPage
+							.setText(" Number of page: " + currPage + " from " + (rowList.size() / numOfRows + 1));
+					lableNumberOfElements
+							.setText("Number of elementson page: " + rowList.size() + " from total " + rowList.size());
 				}
 				numOfRowsEnd = numOfRows;
 				numOfRowsStart = 0;
@@ -486,15 +521,18 @@ public class TableWithPages {
 				System.out.println("Pressed");
 
 				data = rowList.toArray(new String[0][]);
-				if(rowList.size() > numOfRows) {
+				if (rowList.size() > numOfRows) {
 					currPage = 1;
-					lableNumberOnPage.setText(" Number of page: " + currPage + " from " + (rowList.size()/numOfRows+1));
-					lableNumberOfElements.setText("Number of elementson page: " + numOfRows + " from total " + rowList.size());
-				}
-				else {
+					lableNumberOnPage
+							.setText(" Number of page: " + currPage + " from " + (rowList.size() / numOfRows + 1));
+					lableNumberOfElements
+							.setText("Number of elementson page: " + numOfRows + " from total " + rowList.size());
+				} else {
 					currPage = 1;
-					lableNumberOnPage.setText(" Number of page: " + currPage + " from " + (rowList.size()/numOfRows+1));
-					lableNumberOfElements.setText("Number of elementson page: " + rowList.size() + " from total " + rowList.size());	
+					lableNumberOnPage
+							.setText(" Number of page: " + currPage + " from " + (rowList.size() / numOfRows + 1));
+					lableNumberOfElements
+							.setText("Number of elementson page: " + rowList.size() + " from total " + rowList.size());
 				}
 				numOfRowsEnd = numOfRows;
 				numOfRowsStart = 0;
@@ -528,16 +566,20 @@ public class TableWithPages {
 				if (rowList.size() % numOfRows != 0) {
 					numOfRowsEnd = rowList.size();
 					numOfRowsStart = rowList.size() - rowList.size() % numOfRows;
-					currPage = (rowList.size()/numOfRows+1);
-					lableNumberOnPage.setText(" Number of page: " + currPage + " from " + (rowList.size()/numOfRows+1));
-					lableNumberOfElements.setText("Number of elementson page: " + rowList.size() % numOfRows + " from total " + rowList.size());
+					currPage = (rowList.size() / numOfRows + 1);
+					lableNumberOnPage
+							.setText(" Number of page: " + currPage + " from " + (rowList.size() / numOfRows + 1));
+					lableNumberOfElements.setText("Number of elementson page: " + rowList.size() % numOfRows
+							+ " from total " + rowList.size());
 				} else {
 					numOfRowsEnd = rowList.size();
 					numOfRowsStart = rowList.size() - numOfRows;
-					currPage = (rowList.size()/numOfRows+1);
-					lableNumberOnPage.setText(" Number of page: " + currPage + " from " + (rowList.size()/numOfRows+1));
-						lableNumberOfElements.setText("Number of elementson page: " + numOfRows + " from total " + rowList.size());
-						
+					currPage = (rowList.size() / numOfRows + 1);
+					lableNumberOnPage
+							.setText(" Number of page: " + currPage + " from " + (rowList.size() / numOfRows + 1));
+					lableNumberOfElements
+							.setText("Number of elementson page: " + numOfRows + " from total " + rowList.size());
+
 				}
 				data = rowList.toArray(new String[0][]);
 				List<String[]> dataCurr = new ArrayList<String[]>();
@@ -566,16 +608,20 @@ public class TableWithPages {
 				if (rowList.size() % numOfRows != 0) {
 					numOfRowsEnd = rowList.size();
 					numOfRowsStart = rowList.size() - rowList.size() % numOfRows;
-					currPage = (rowList.size()/numOfRows+1);
-					lableNumberOnPage.setText(" Number of page: " + currPage + " from " + (rowList.size()/numOfRows+1));
-					lableNumberOfElements.setText("Number of elementson page: " + rowList.size() % numOfRows + " from total " + rowList.size());
+					currPage = (rowList.size() / numOfRows + 1);
+					lableNumberOnPage
+							.setText(" Number of page: " + currPage + " from " + (rowList.size() / numOfRows + 1));
+					lableNumberOfElements.setText("Number of elementson page: " + rowList.size() % numOfRows
+							+ " from total " + rowList.size());
 				} else {
 					numOfRowsEnd = rowList.size();
 					numOfRowsStart = rowList.size() - numOfRows;
-					currPage = (rowList.size()/numOfRows+1);
-					lableNumberOnPage.setText(" Number of page: " + currPage + " from " + (rowList.size()/numOfRows+1));
-						lableNumberOfElements.setText("Number of elementson page: " + numOfRows + " from total " + rowList.size());
-						
+					currPage = (rowList.size() / numOfRows + 1);
+					lableNumberOnPage
+							.setText(" Number of page: " + currPage + " from " + (rowList.size() / numOfRows + 1));
+					lableNumberOfElements
+							.setText("Number of elementson page: " + numOfRows + " from total " + rowList.size());
+
 				}
 				data = rowList.toArray(new String[0][]);
 				List<String[]> dataCurr = new ArrayList<String[]>();

@@ -22,6 +22,7 @@ import javax.swing.UIManager;
 
 import controller.DeleteController;
 import controller.SearchController;
+import controller.UniversityController;
 import model.Lecturer;
 import model.Uni;
 
@@ -33,10 +34,10 @@ public class ChooserForSearch {
 	JTable table;
 	WindowUserCom t;
 
-	ChooserForSearch(WindowUserCom t){
+	ChooserForSearch(WindowUserCom t) {
 		this.t = t;
 	}
-	
+
 	public void listenerSearchChooser(JMenuItem menu, Uni uni, int index) {
 		ActionListener actionListener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -83,30 +84,13 @@ public class ChooserForSearch {
 
 	public void listenerSearchByFaculty(Uni uni) {
 
-		String[] faculties = new String[uni.getLenght()];
-		int numberOfFaculties = 0;
-		for (int indexOfCurrentFaculty = 0; indexOfCurrentFaculty < uni.getLenght(); indexOfCurrentFaculty++) {
-			faculties[indexOfCurrentFaculty] = uni.getFaculty(indexOfCurrentFaculty).getTitle();
-			numberOfFaculties += uni.getFaculty(indexOfCurrentFaculty).getLenght();
-		}
-		String[] departments = new String[numberOfFaculties];
-		Set<String> degreeT = new HashSet<>();
-		int numberOfCurrentDepartments = 0;
-		for (int indexOfCurrentFaculty = 0; indexOfCurrentFaculty < uni.getLenght(); indexOfCurrentFaculty++) {
-			for (int indexOfCurrentDepartment = 0; indexOfCurrentDepartment < uni.getFaculty(indexOfCurrentFaculty)
-					.getLenght(); indexOfCurrentDepartment++) {
-				departments[numberOfCurrentDepartments++] = uni.getFaculty(indexOfCurrentFaculty)
-						.getDepartment(indexOfCurrentDepartment).getTitle();
-				for (int indexOfCurrentLecturer = 0; indexOfCurrentLecturer < uni.getFaculty(indexOfCurrentFaculty)
-						.getDepartment(indexOfCurrentDepartment).getLenght(); indexOfCurrentLecturer++) {
-					degreeT.add(uni.getFaculty(indexOfCurrentFaculty).getDepartment(indexOfCurrentDepartment)
-							.getlecturer(indexOfCurrentLecturer).getDegreeName());
-				}
-			}
-		}
-		String[] degreeTs = degreeT.toArray(new String[0]);
+		UniversityController uniContr = new UniversityController();
+		String[] faculties = uniContr.getFaculties(uni).toArray(new String[0]);
+
+		String[] degreeT = uniContr.getDegrees(uni).toArray(new String[0]);
+
 		JComboBox<String> comboBoxF = new JComboBox<String>(faculties);
-		JComboBox<String> comboBoxDn = new JComboBox<String>(degreeTs);
+		JComboBox<String> comboBoxDn = new JComboBox<String>(degreeT);
 
 		JPanel myPanel = new JPanel();
 		myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
@@ -121,7 +105,8 @@ public class ChooserForSearch {
 				JOptionPane.OK_CANCEL_OPTION);
 		if (result == JOptionPane.OK_OPTION) {
 			SearchController searchcontr = new SearchController();
-			List<String[]> rowList = searchcontr.listenerSearchByFaculty(uni, (String) comboBoxF.getSelectedItem(), (String) comboBoxDn.getSelectedItem());
+			List<String[]> rowList = searchcontr.listenerSearchByFaculty(uni, (String) comboBoxF.getSelectedItem(),
+					(String) comboBoxDn.getSelectedItem());
 			// String[][] data = rowList.toArray(new String[0][]);
 			JPanel pan = new JPanel();
 
@@ -130,9 +115,9 @@ public class ChooserForSearch {
 			 * table1.setPreferredScrollableViewportSize(new Dimension(1800, 500));
 			 * table1.setRowHeight(50);
 			 */
-			//pan.setLayout(null);
+			// pan.setLayout(null);
 			TableWithPages currTable = new TableWithPages(t, uni, rowList, pan);
-			//pan.add(currTable.scroll);
+			// pan.add(currTable.scroll);
 
 			UIManager.put("OptionPane.minimumSize", new Dimension(1800, 500));
 
@@ -146,22 +131,8 @@ public class ChooserForSearch {
 
 		JTextField nameField = new JTextField();
 
-		String[] faculties = new String[uni.getLenght()];
-		int lengthF = 0;
-		for (int indexOfCurrentFaculty = 0; indexOfCurrentFaculty < uni.getLenght(); indexOfCurrentFaculty++) {
-			faculties[indexOfCurrentFaculty] = uni.getFaculty(indexOfCurrentFaculty).getTitle();
-			lengthF += uni.getFaculty(indexOfCurrentFaculty).getLenght();
-		}
-		String[] departments = new String[lengthF];
-
-		int m = 0;
-		for (int indexOfCurrentFaculty = 0; indexOfCurrentFaculty < uni.getLenght(); indexOfCurrentFaculty++) {
-			for (int indexOfCurrentDepartment = 0; indexOfCurrentDepartment < uni.getFaculty(indexOfCurrentFaculty)
-					.getLenght(); indexOfCurrentDepartment++) {
-				departments[m++] = uni.getFaculty(indexOfCurrentFaculty).getDepartment(indexOfCurrentDepartment)
-						.getTitle();
-			}
-		}
+		UniversityController uniContr = new UniversityController();
+		String[] departments = uniContr.getDepartments(uni).toArray(new String[0]);
 
 		JComboBox<String> comboBoxD = new JComboBox<String>(departments);
 
@@ -177,8 +148,9 @@ public class ChooserForSearch {
 				JOptionPane.OK_CANCEL_OPTION);
 		if (result == JOptionPane.OK_OPTION) {
 			SearchController searchcontr = new SearchController();
-			List<String[]> rowList = searchcontr.listenerSearchByName(uni, (String) comboBoxD.getSelectedItem(), nameField.getText());
-			
+			List<String[]> rowList = searchcontr.listenerSearchByName(uni, (String) comboBoxD.getSelectedItem(),
+					nameField.getText());
+
 			// String[][] data = rowList.toArray(new String[0][]);
 			JPanel pan = new JPanel();
 
@@ -192,7 +164,6 @@ public class ChooserForSearch {
 			JOptionPane.showMessageDialog(null, pan, "Table", JOptionPane.OK_CANCEL_OPTION);
 
 		}
-
 	}
 
 	public void listenerSearchByYear(Uni uni) {
@@ -216,7 +187,6 @@ public class ChooserForSearch {
 			SearchController searchcontr = new SearchController();
 			List<String[]> rowList = searchcontr.listenerSearchByYear(uni, uare1, uare2);
 			TableWithPages currTable = new TableWithPages(t, uni, rowList, pan);
-			pan.add(currTable.scroll);
 			UIManager.put("OptionPane.minimumSize", new Dimension(1800, 500));
 
 			JOptionPane.showMessageDialog(null, pan, "Table", JOptionPane.OK_CANCEL_OPTION);

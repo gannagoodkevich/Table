@@ -24,6 +24,7 @@ import javax.xml.transform.TransformerException;
 
 import controller.DOMExample;
 import controller.DeleteController;
+import controller.UniversityController;
 import model.Lecturer;
 import model.Uni;
 
@@ -44,7 +45,7 @@ public class ChoosedForDelete {
 				JPanel myPanel = new JPanel();
 				myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
 				if (index == 0) {
-					listenerSearchByFaculty(uni);				
+					listenerSearchByFaculty(uni);
 				}
 				if (index == 1) {
 					listenerSearchByName(uni);
@@ -52,14 +53,14 @@ public class ChoosedForDelete {
 				if (index == 2) {
 					listenerSearchByYear(uni);
 				}
-				
+
 			}
-			
+
 		};
 		menu.addActionListener(actionListener);
-		
+
 	}
-	
+
 	public void listenerSearchChooser(JButton button, Uni uni) {
 		ActionListener actionListener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -71,7 +72,7 @@ public class ChoosedForDelete {
 						JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 
 				if (result == 0) {
-					listenerSearchByFaculty(currentWindow.currentUniversity);				
+					listenerSearchByFaculty(currentWindow.currentUniversity);
 				}
 				if (result == 1) {
 					listenerSearchByName(currentWindow.currentUniversity);
@@ -79,39 +80,18 @@ public class ChoosedForDelete {
 				if (result == 2) {
 					listenerSearchByYear(currentWindow.currentUniversity);
 				}
-			
+
 			}
 		};
 		button.addActionListener(actionListener);
 	}
 
 	public void listenerSearchByFaculty(Uni uni) {
-
-		String[] faculties = new String[uni.getLenght()];
-		int lengthF = 0;
-		for (int indexOfCurrentFaculty = 0; indexOfCurrentFaculty < uni.getLenght(); indexOfCurrentFaculty++) {
-			faculties[indexOfCurrentFaculty] = uni.getFaculty(indexOfCurrentFaculty).getTitle();
-			lengthF += uni.getFaculty(indexOfCurrentFaculty).getLenght();
-		}
-		String[] departments = new String[lengthF];
-		Set<String> degreeT = new HashSet<>();
-		int indexOfDep = 0;
-		for (int indexOfCurrentFaculty = 0; indexOfCurrentFaculty < uni.getLenght(); indexOfCurrentFaculty++) {
-			for (int indexOfCurrentDepartment = 0; indexOfCurrentDepartment < uni.getFaculty(indexOfCurrentFaculty)
-					.getLenght(); indexOfCurrentDepartment++) {
-				departments[indexOfDep++] = uni.getFaculty(indexOfCurrentFaculty).getDepartment(indexOfCurrentDepartment)
-						.getTitle();
-				for (int indexOfCurrentLecturer = 0; indexOfCurrentLecturer < uni.getFaculty(indexOfCurrentFaculty)
-						.getDepartment(indexOfCurrentDepartment).getLenght(); indexOfCurrentLecturer++) {
-					degreeT.add(uni.getFaculty(indexOfCurrentFaculty).getDepartment(indexOfCurrentDepartment)
-							.getlecturer(indexOfCurrentLecturer).getDegreeName());
-				}
-			}
-		}
-		String[] degreeTs = degreeT.toArray(new String[0]);
-
+		UniversityController uniContr = new UniversityController();
+		String[] faculties = uniContr.getFaculties(uni).toArray(new String[0]);
+		String[] degreeT = uniContr.getDegrees(uni).toArray(new String[0]);
 		JComboBox<String> comboBoxF = new JComboBox<String>(faculties);
-		JComboBox<String> comboBoxDn = new JComboBox<String>(degreeTs);
+		JComboBox<String> comboBoxDn = new JComboBox<String>(degreeT);
 
 		JPanel myPanel = new JPanel();
 		myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
@@ -125,7 +105,8 @@ public class ChoosedForDelete {
 				JOptionPane.OK_CANCEL_OPTION);
 		if (result == JOptionPane.OK_OPTION) {
 			DeleteController deletecontr = new DeleteController();
-			int numberOfDelete = deletecontr.listenerSearchByFaculty(uni, (String) comboBoxF.getSelectedItem(), (String) comboBoxDn.getSelectedItem());
+			int numberOfDelete = deletecontr.listenerSearchByFaculty(uni, (String) comboBoxF.getSelectedItem(),
+					(String) comboBoxDn.getSelectedItem());
 			JPanel pan = new JPanel();
 			pan.add(new JLabel(" " + numberOfDelete));
 			UIManager.put("OptionPane.minimumSize", new Dimension(1800, 500));
@@ -146,22 +127,8 @@ public class ChoosedForDelete {
 
 		JTextField nameField = new JTextField();
 
-		String[] faculties = new String[uni.getLenght()];
-		int numberOfFaculty = 0;
-		for (int indexOfCurrentFaculty = 0; indexOfCurrentFaculty < uni.getLenght(); indexOfCurrentFaculty++) {
-			faculties[indexOfCurrentFaculty] = uni.getFaculty(indexOfCurrentFaculty).getTitle();
-			numberOfFaculty += uni.getFaculty(indexOfCurrentFaculty).getLenght();
-		}
-		String[] departments = new String[numberOfFaculty];
-
-		int numberOfDepartments = 0;
-		for (int indexOfCurrentFaculty = 0; indexOfCurrentFaculty < uni.getLenght(); indexOfCurrentFaculty++) {
-			for (int indexOfCurrentDepartment = 0; indexOfCurrentDepartment < uni.getFaculty(indexOfCurrentFaculty)
-					.getLenght(); indexOfCurrentDepartment++) {
-				departments[numberOfDepartments++] = uni.getFaculty(indexOfCurrentFaculty).getDepartment(indexOfCurrentDepartment)
-						.getTitle();
-			}
-		}
+		UniversityController uniContr = new UniversityController();
+		String[] departments = uniContr.getDepartments(uni).toArray(new String[0]);
 
 		JComboBox<String> comboBoxD = new JComboBox<String>(departments);
 
@@ -177,7 +144,8 @@ public class ChoosedForDelete {
 				JOptionPane.OK_CANCEL_OPTION);
 		if (result == JOptionPane.OK_OPTION) {
 			DeleteController deletecontr = new DeleteController();
-			int numberOfDelete = deletecontr.listenerSearchByName(uni, (String) comboBoxD.getSelectedItem(), nameField.getText());
+			int numberOfDelete = deletecontr.listenerSearchByName(uni, (String) comboBoxD.getSelectedItem(),
+					nameField.getText());
 			JPanel pan = new JPanel();
 			pan.add(new JLabel(" " + numberOfDelete));
 			UIManager.put("OptionPane.minimumSize", new Dimension(1800, 500));
@@ -224,21 +192,8 @@ public class ChoosedForDelete {
 	}
 
 	public void updateTable(Uni uni) {
-		List<String[]> rowList = new ArrayList<String[]>();
-		for (int i = 0; i < uni.getLenght(); i++) {
-			for (int j = 0; j < uni.getFaculty(i).getLenght(); j++) {
-				for (int k = 0; k < uni.getFaculty(i).getDepartment(j).getLenght(); k++) {
-					rowList.add(
-							new String[] { uni.getFaculty(i).getTitle(), uni.getFaculty(i).getDepartment(j).getTitle(),
-									uni.getFaculty(i).getDepartment(j).getlecturer(k).getName() + " "
-											+ uni.getFaculty(i).getDepartment(j).getlecturer(k).getSurname() + " "
-											+ uni.getFaculty(i).getDepartment(j).getlecturer(k).getSecondName(),
-									uni.getFaculty(i).getDepartment(j).getlecturer(k).getDegreeName(),
-									uni.getFaculty(i).getDepartment(j).getlecturer(k).getDegree(),
-									uni.getFaculty(i).getDepartment(j).getlecturer(k).getYear() });
-				}
-			}
-		}
+		UniversityController uniContr = new UniversityController();
+		List<String[]> rowList = uniContr.getUniversity(uni);
 		String[][] data = rowList.toArray(new String[0][]);
 		table = new JTable(data, headers);
 		table.repaint();
